@@ -41,6 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TblFieldBll.cs" />
+    <Compile Include="TblImageBll.cs" />
+    <Compile Include="TblSpecimenBll.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SCU.GSMAS.Common\SCU.GSMAS.Common.csproj">
+      <Project>{b0e1e2bf-262b-4eea-939a-46ffadcf7dfe}</Project>
+      <Name>SCU.GSMAS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCU.GSMAS.DAL\SCU.GSMAS.DAL.csproj">
+      <Project>{6dceecd9-ad30-4325-b6cb-c74525b2a80c}</Project>
+      <Name>SCU.GSMAS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCU.GSMAS.Model\SCU.GSMAS.Model.csproj">
+      <Project>{10f86beb-ee7c-4e6e-87b2-f14230d3043c}</Project>
+      <Name>SCU.GSMAS.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

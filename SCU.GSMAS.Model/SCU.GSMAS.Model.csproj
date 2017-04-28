@@ -41,6 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TblCamera.cs" />
+    <Compile Include="TblCategory.cs" />
+    <Compile Include="TblEvent.cs" />
+    <Compile Include="TblField.cs" />
+    <Compile Include="TblImage.cs" />
+    <Compile Include="TblSpecimen.cs" />
+    <Compile Include="TblUser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

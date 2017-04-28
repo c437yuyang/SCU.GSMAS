@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=14.0.0.15, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,8 +47,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmExplore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmExplore.Designer.cs">
+      <DependentUpon>FrmExplore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImage.Designer.cs">
+      <DependentUpon>FrmImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRetrieve.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRetrieve.Designer.cs">
+      <DependentUpon>FrmRetrieve.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmExplore.resx">
+      <DependentUpon>FrmExplore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmImage.resx">
+      <DependentUpon>FrmImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRetrieve.resx">
+      <DependentUpon>FrmRetrieve.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -56,7 +93,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -68,7 +107,113 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\SCU.GSMAS.BLL\SCU.GSMAS.BLL.csproj">
+      <Project>{d90baccd-6694-48c9-8f56-40a147b6a908}</Project>
+      <Name>SCU.GSMAS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCU.GSMAS.Common\SCU.GSMAS.Common.csproj">
+      <Project>{b0e1e2bf-262b-4eea-939a-46ffadcf7dfe}</Project>
+      <Name>SCU.GSMAS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCU.GSMAS.DAL\SCU.GSMAS.DAL.csproj">
+      <Project>{6DCEECD9-AD30-4325-B6CB-C74525B2A80C}</Project>
+      <Name>SCU.GSMAS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCU.GSMAS.Model\SCU.GSMAS.Model.csproj">
+      <Project>{10f86beb-ee7c-4e6e-87b2-f14230d3043c}</Project>
+      <Name>SCU.GSMAS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application_view_tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_business_06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\businessman_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chinaz1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Drawing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\feed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FolderClosed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FolderOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Harddrive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HEINS_INTERNET_BROWSERS EXPLORER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Outbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RecycleBin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shoppingbasket_full.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vista_blue_05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
