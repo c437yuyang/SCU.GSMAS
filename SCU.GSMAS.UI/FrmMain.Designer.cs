@@ -679,6 +679,7 @@ namespace SCU.GSMAS.UI
             this.buttonItem13.Name = "buttonItem13";
             this.buttonItem13.SubItemsExpandWidth = 24;
             this.buttonItem13.Text = "E&xit";
+            this.buttonItem13.Click += new System.EventHandler(this.buttonItem13_Click);
             // 
             // bnTab_sp
             // 
@@ -837,6 +838,8 @@ namespace SCU.GSMAS.UI
             this.Controls.Add(this.ribbonControl1);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMain_FormClosed);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.ribbonControl1.ResumeLayout(false);
             this.ribbonControl1.PerformLayout();

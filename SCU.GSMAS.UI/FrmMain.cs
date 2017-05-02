@@ -87,7 +87,6 @@ namespace SCU.GSMAS.UI
         {
             Common.FrmManager.dicFrms.Add(this.GetType().ToString(), this);
 
-
             DateTime time = System.DateTime.Now;
             lbl_Date.Text = time.ToString();
             lbl_field.Text = "矿区1";
@@ -137,5 +136,21 @@ namespace SCU.GSMAS.UI
             tabMain.SelectedTab = tabMain.Tabs[tabName];
         }
 
+        private void buttonItem13_Click(object sender, EventArgs e)
+        {
+            if(MessageBoxEx.Show("确认退出?","提示",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+                System.Environment.Exit(0);
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBoxEx.Show("确认退出?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                System.Environment.Exit(0);
+        }
+
+        private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
     }
 }

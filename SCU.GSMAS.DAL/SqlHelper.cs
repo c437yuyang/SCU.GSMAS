@@ -33,7 +33,7 @@ namespace SCU.GSMAS.DAL
 
 
         //返回单个值
-        public static object ExecuteScalar(string sql,CommandType cmdType,params SqlParameter[] pms)
+        public static object ExecuteScalar(string sql, CommandType cmdType, params SqlParameter[] pms)
         {
             using (SqlConnection con = new SqlConnection(conStr))
             {
@@ -84,7 +84,7 @@ namespace SCU.GSMAS.DAL
         {
             DataTable dt = new DataTable();
             SqlConnection con = new SqlConnection(conStr);
-            using(SqlDataAdapter adapter = new SqlDataAdapter(sql, con))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(sql, con))
             {
                 if (pms != null)
                 {
@@ -94,6 +94,9 @@ namespace SCU.GSMAS.DAL
             }
             return dt;
         }
+
+
+
 
     }
 }
