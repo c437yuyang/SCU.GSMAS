@@ -43,6 +43,15 @@ namespace SCU.GSMAS.UI
             this.lbl_sp = new DevComponents.DotNetBar.LabelItem();
             this.cb_sp = new DevComponents.DotNetBar.ComboBoxItem();
             this.dgvExplore = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.im_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_fileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_resolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_saveLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sp_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.btnFirst = new DevComponents.DotNetBar.ButtonItem();
             this.btnPre = new DevComponents.DotNetBar.ButtonItem();
@@ -56,15 +65,6 @@ namespace SCU.GSMAS.UI
             this.lbl = new DevComponents.DotNetBar.LabelItem();
             this.cbPageSize = new DevComponents.DotNetBar.ComboBoxItem();
             this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
-            this.im_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_fileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_resolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_saveLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sp_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -242,8 +242,74 @@ namespace SCU.GSMAS.UI
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             this.dgvExplore.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvExplore.RowTemplate.Height = 23;
+            this.dgvExplore.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvExplore.Size = new System.Drawing.Size(590, 489);
             this.dgvExplore.TabIndex = 5;
+            this.dgvExplore.DoubleClick += new System.EventHandler(this.dgvExplore_DoubleClick);
+            // 
+            // im_id
+            // 
+            this.im_id.DataPropertyName = "im_id";
+            this.im_id.HeaderText = "图像编号";
+            this.im_id.Name = "im_id";
+            this.im_id.ReadOnly = true;
+            // 
+            // im_path
+            // 
+            this.im_path.DataPropertyName = "im_path";
+            this.im_path.HeaderText = "图像路径";
+            this.im_path.Name = "im_path";
+            this.im_path.ReadOnly = true;
+            // 
+            // im_fileName
+            // 
+            this.im_fileName.DataPropertyName = "im_fileName";
+            this.im_fileName.HeaderText = "图像名称";
+            this.im_fileName.Name = "im_fileName";
+            this.im_fileName.ReadOnly = true;
+            // 
+            // im_time
+            // 
+            this.im_time.DataPropertyName = "im_time";
+            this.im_time.HeaderText = "图像拍摄时间";
+            this.im_time.Name = "im_time";
+            this.im_time.ReadOnly = true;
+            this.im_time.Width = 120;
+            // 
+            // im_resolution
+            // 
+            this.im_resolution.DataPropertyName = "im_resolution";
+            this.im_resolution.HeaderText = "图像清晰度";
+            this.im_resolution.Name = "im_resolution";
+            this.im_resolution.ReadOnly = true;
+            // 
+            // im_saveLevel
+            // 
+            this.im_saveLevel.DataPropertyName = "im_saveLevel";
+            this.im_saveLevel.HeaderText = "图像级别";
+            this.im_saveLevel.Name = "im_saveLevel";
+            this.im_saveLevel.ReadOnly = true;
+            // 
+            // cam_id
+            // 
+            this.cam_id.DataPropertyName = "cam_id";
+            this.cam_id.HeaderText = "相机参数编号";
+            this.cam_id.Name = "cam_id";
+            this.cam_id.ReadOnly = true;
+            // 
+            // sp_id
+            // 
+            this.sp_id.DataPropertyName = "sp_id";
+            this.sp_id.HeaderText = "标本编号";
+            this.sp_id.Name = "sp_id";
+            this.sp_id.ReadOnly = true;
+            // 
+            // userId
+            // 
+            this.userId.DataPropertyName = "userId";
+            this.userId.HeaderText = "操作人员";
+            this.userId.Name = "userId";
+            this.userId.ReadOnly = true;
             // 
             // bar1
             // 
@@ -336,70 +402,6 @@ namespace SCU.GSMAS.UI
             // 
             this.labelItem2.Name = "labelItem2";
             this.labelItem2.Text = "条";
-            // 
-            // im_id
-            // 
-            this.im_id.DataPropertyName = "im_id";
-            this.im_id.HeaderText = "图像编号";
-            this.im_id.Name = "im_id";
-            this.im_id.ReadOnly = true;
-            // 
-            // im_path
-            // 
-            this.im_path.DataPropertyName = "im_path";
-            this.im_path.HeaderText = "图像路径";
-            this.im_path.Name = "im_path";
-            this.im_path.ReadOnly = true;
-            // 
-            // im_fileName
-            // 
-            this.im_fileName.DataPropertyName = "im_fileName";
-            this.im_fileName.HeaderText = "图像名称";
-            this.im_fileName.Name = "im_fileName";
-            this.im_fileName.ReadOnly = true;
-            // 
-            // im_time
-            // 
-            this.im_time.DataPropertyName = "im_time";
-            this.im_time.HeaderText = "图像拍摄时间";
-            this.im_time.Name = "im_time";
-            this.im_time.ReadOnly = true;
-            this.im_time.Width = 120;
-            // 
-            // im_resolution
-            // 
-            this.im_resolution.DataPropertyName = "im_resolution";
-            this.im_resolution.HeaderText = "图像清晰度";
-            this.im_resolution.Name = "im_resolution";
-            this.im_resolution.ReadOnly = true;
-            // 
-            // im_saveLevel
-            // 
-            this.im_saveLevel.DataPropertyName = "im_saveLevel";
-            this.im_saveLevel.HeaderText = "图像级别";
-            this.im_saveLevel.Name = "im_saveLevel";
-            this.im_saveLevel.ReadOnly = true;
-            // 
-            // cam_id
-            // 
-            this.cam_id.DataPropertyName = "cam_id";
-            this.cam_id.HeaderText = "相机参数编号";
-            this.cam_id.Name = "cam_id";
-            this.cam_id.ReadOnly = true;
-            // 
-            // sp_id
-            // 
-            this.sp_id.DataPropertyName = "sp_id";
-            this.sp_id.HeaderText = "标本编号";
-            this.sp_id.Name = "sp_id";
-            this.sp_id.ReadOnly = true;
-            // 
-            // userId
-            // 
-            this.userId.DataPropertyName = "userId";
-            this.userId.HeaderText = "操作人员";
-            this.userId.Name = "userId";
-            this.userId.ReadOnly = true;
             // 
             // FrmExplore
             // 

@@ -218,5 +218,41 @@ namespace SCU.GSMAS.UI
             //LoadSelectItem(); //这个函数根据tree控件选中的item来加载
 
         }
+
+        private void dgvExplore_DoubleClick(object sender, EventArgs e)
+        {
+            //当双击列表中图像时，在图像窗口显示对应图像
+
+            if (dgvExplore.SelectedRows.Count != 0)
+            {
+                Image img = getImageByItem();
+                
+                if (Common.FrmManager.dicFrms.ContainsKey(typeof(FrmImage).ToString()))
+                {
+                    FrmImage frm = ((FrmImage)(Common.FrmManager.dicFrms[typeof(FrmImage).ToString()]));
+                    frm.loadImage(img);
+                    ((FrmMain)(Common.FrmManager.dicFrms[typeof(FrmMain).ToString()])).changeTab(frm.Name);
+                }
+                else
+                {
+                    FrmImage frm = FrmImage.CreateInstance();
+                    //Common.FrmManager.dicFrms.Add(typeof(FrmImage).ToString(), frm);//在openWindow里面已经写了添加窗口了
+                    ((FrmMain)(Common.FrmManager.dicFrms[typeof(FrmMain).ToString()])).openWindow(frm, frm.Name);
+                    frm.loadImage(img);
+                }
+                
+            }
+
+        }
+
+        private Image getImageByItem()
+        {
+            string imgPath = (string)dgvExplore.SelectedRows[0].Cells["im_path"].Value
+                + "/" + (string)dgvExplore.SelectedRows[0].Cells["im_fileName"].Value;
+
+            //Console.WriteLine(imgPath);
+            Image img = Image.FromFile(imgPath);
+            return img;
+        }
     }
 }

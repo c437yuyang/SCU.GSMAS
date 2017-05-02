@@ -46,6 +46,7 @@ namespace SCU.GSMAS.UI
                 tabMain.Controls.Add(tcp);
                 tabMain.Tabs.Add(tp);
                 tabMain.SelectedTab = tp;
+                Common.FrmManager.dicFrms.Add(frm.GetType().ToString(), frm);
             }
             tabMain.Refresh();
         }
@@ -84,6 +85,9 @@ namespace SCU.GSMAS.UI
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            Common.FrmManager.dicFrms.Add(this.GetType().ToString(), this);
+
+
             DateTime time = System.DateTime.Now;
             lbl_Date.Text = time.ToString();
             lbl_field.Text = "¿óÇø1";
@@ -116,6 +120,21 @@ namespace SCU.GSMAS.UI
         {
             TabItem tb = tabMain.SelectedTab;
             tabMain.Tabs.Remove(tb);
+        }
+
+        private void rbTab_ImageProc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ribbonControl1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        public void changeTab(string tabName)
+        {
+            tabMain.SelectedTab = tabMain.Tabs[tabName];
         }
 
     }
