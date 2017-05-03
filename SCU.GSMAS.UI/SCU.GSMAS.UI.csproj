@@ -134,7 +134,9 @@
       <Name>SCU.GSMAS.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\BACK UP FOLDER.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\41.png" />
   </ItemGroup>
@@ -224,6 +226,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Zip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data_backup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HEINS_QUANTUM_FOLDERS BACK UP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Panel de control.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

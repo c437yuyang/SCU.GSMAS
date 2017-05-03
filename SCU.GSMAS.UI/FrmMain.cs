@@ -146,6 +146,8 @@ namespace SCU.GSMAS.UI
         {
             if (MessageBoxEx.Show("确认退出?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 System.Environment.Exit(0);
+            else
+                e.Cancel = true;
         }
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)

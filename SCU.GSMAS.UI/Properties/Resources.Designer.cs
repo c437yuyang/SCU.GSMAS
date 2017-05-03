@@ -93,6 +93,16 @@ namespace SCU.GSMAS.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap BACK_UP_FOLDER {
+            get {
+                object obj = ResourceManager.GetObject("BACK UP FOLDER", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap blue_business_06 {
             get {
                 object obj = ResourceManager.GetObject("blue_business_06", resourceCulture);
@@ -136,6 +146,16 @@ namespace SCU.GSMAS.UI.Properties {
         internal static System.Drawing.Bitmap computer {
             get {
                 object obj = ResourceManager.GetObject("computer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap data_backup {
+            get {
+                object obj = ResourceManager.GetObject("data_backup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,6 +273,16 @@ namespace SCU.GSMAS.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap HEINS_QUANTUM_FOLDERS_BACK_UP {
+            get {
+                object obj = ResourceManager.GetObject("HEINS_QUANTUM_FOLDERS BACK UP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Home2 {
             get {
                 object obj = ResourceManager.GetObject("Home2", resourceCulture);
@@ -303,6 +333,16 @@ namespace SCU.GSMAS.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Panel_de_control {
+            get {
+                object obj = ResourceManager.GetObject("Panel de control", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap RecycleBin {
             get {
                 object obj = ResourceManager.GetObject("RecycleBin", resourceCulture);
@@ -336,6 +376,16 @@ namespace SCU.GSMAS.UI.Properties {
         internal static System.Drawing.Bitmap Spam {
             get {
                 object obj = ResourceManager.GetObject("Spam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap table_add {
+            get {
+                object obj = ResourceManager.GetObject("table_add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
