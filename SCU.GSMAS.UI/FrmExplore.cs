@@ -10,6 +10,11 @@ using DevComponents.AdvTree;
 using SCU.GSMAS.DAL;
 using SCU.GSMAS.Model;
 using SCU.GSMAS.BLL;
+using System.Threading;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
+using System.Reflection;
 
 namespace SCU.GSMAS.UI
 {
@@ -19,7 +24,7 @@ namespace SCU.GSMAS.UI
         private TblFieldBll filedBll = new TblFieldBll();
         private TblSpecimenBll spBll = new TblSpecimenBll();
         private TblImageBll imBll = new TblImageBll();
-
+        private Thread _thReceive;
         private FrmExplore()
         {
             InitializeComponent();
@@ -83,7 +88,7 @@ namespace SCU.GSMAS.UI
                 cb_field.Items.Add(field); //先加载矿区部分，后面标本部分根据切换动态加载
                 //根据矿区加载标本
                 List<TblSpecimen> specimens = spBll.GetListByFieldId(field.fd_id);
-                foreach(TblSpecimen sp in specimens)
+                foreach (TblSpecimen sp in specimens)
                 {
                     Node subNode = CreateChildNode(sp.sp_name, sp.sp_no, Properties.Resources.Folder, advTree1.Styles["subitemstyle"]);
                     subNode.Tag = sp.sp_id;//方便找到sp
@@ -131,14 +136,14 @@ namespace SCU.GSMAS.UI
         /// <param name="e"></param>
         private void cb_field_Click(object sender, EventArgs e)
         {
-            if(cb_field.SelectedItem.ToString()=="全部") //判断选中全部矿区的情况
+            if (cb_field.SelectedItem.ToString() == "全部") //判断选中全部矿区的情况
             {
                 advTree1.SelectedIndex = -1;
                 this.dgvExplore.DataSource = imBll.GetDataTable();
                 return;
             }
-            int index = getTreeIndexByName(advTree1.Nodes,cb_field.SelectedItem.ToString()); //找到对应的树控件的itemIndex
-            if(index!=-1)
+            int index = getTreeIndexByName(advTree1.Nodes, cb_field.SelectedItem.ToString()); //找到对应的树控件的itemIndex
+            if (index != -1)
                 advTree1.SelectedNode = advTree1.Nodes[index];
 
             LoadSelectItem(); //这个函数根据tree控件选中的item来加载
@@ -151,20 +156,20 @@ namespace SCU.GSMAS.UI
             //{
             //    cb_sp.Items.Add()
             //}
-            
+
             //第二种方式:
             List<TblSpecimen> list = spBll.GetListByFieldId((int)advTree1.SelectedNode.Tag);
             cb_sp.Items.Add("全部");
-            foreach(TblSpecimen sp in list)
+            foreach (TblSpecimen sp in list)
             {
                 cb_sp.Items.Add(sp);
             }
             cb_sp.SelectedIndex = 0; //先选中全部
         }
 
-        private int getTreeIndexByName(NodeCollection nodes,string ItemName)
+        private int getTreeIndexByName(NodeCollection nodes, string ItemName)
         {
-            foreach(Node node in nodes)
+            foreach (Node node in nodes)
             {
                 if (node.Text == ItemName)
                     return node.Index;
@@ -226,7 +231,7 @@ namespace SCU.GSMAS.UI
             if (dgvExplore.SelectedRows.Count != 0)
             {
                 Image img = getImageByItem();
-                
+
                 if (Common.FrmManager.dicFrms.ContainsKey(typeof(FrmImage).ToString()))
                 {
                     FrmImage frm = ((FrmImage)(Common.FrmManager.dicFrms[typeof(FrmImage).ToString()]));
@@ -240,19 +245,96 @@ namespace SCU.GSMAS.UI
                     ((FrmMain)(Common.FrmManager.dicFrms[typeof(FrmMain).ToString()])).openWindow(frm, frm.Name);
                     frm.loadImage(img);
                 }
-                
+
             }
 
         }
 
         private Image getImageByItem()
         {
-            string imgPath = (string)dgvExplore.SelectedRows[0].Cells["im_path"].Value
-                + "/" + (string)dgvExplore.SelectedRows[0].Cells["im_fileName"].Value;
+            string path = System.Environment.CurrentDirectory + @"\cache\";
+            Directory.CreateDirectory(path);
+            int imgId = (int)dgvExplore.SelectedRows[0].Cells["im_id"].Value;
 
+            //检查缓存中是否存在请求图像，如果存在则直接读取否则开启新线程下载图像
+            if (!checkCache(imgId))
+            {
+                //启动新线程下载图像
+                _thReceive = new Thread(ask);
+                _thReceive.Start(imgId);
+                _thReceive.IsBackground = true;
+                _thReceive.Join();
+            }
+
+            string imgPath = @"cache\" + imgId.ToString() + ".jpg";
             //Console.WriteLine(imgPath);
             Image img = Image.FromFile(imgPath);
             return img;
+
+
+            //return null;
+
+
+
         }
+
+        private bool checkCache(int imgId)
+        {
+            string cachePath = System.Environment.CurrentDirectory + @"\cache\";
+
+            string[] files = Directory.GetFiles(cachePath);
+
+            foreach(var file in files)
+            {
+                FileInfo fileinfo = new FileInfo(file);           
+                if (fileinfo.Name == imgId.ToString() + ".jpg")
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        private void ask(object Id)
+        {
+            int imgId = (int)Id; //还需要判断图像是否存在，如果不存在则提示用户未找到图像
+            //下载得到的图像存放按照ID存储在(cache目录下)，每次下载前先检查是否存在缓存图像
+            TcpClient client = new TcpClient();
+            //client.Connect(IPAddress.Parse("127.0.0.1"), int.Parse("50000"));
+            client.Connect(IPAddress.Parse("192.168.135.100"), int.Parse("50000"));
+
+            using (NetworkStream ns = client.GetStream())
+            {
+                //向服务器端发送请求的文件ID
+
+                byte[] idBuffer = BitConverter.GetBytes(imgId);
+                byte[] filebuf = new byte[400];
+                idBuffer.CopyTo(filebuf, 0);
+                ns.Write(filebuf, 0, 400); //发送请求文件ID
+
+                //Directory.CreateDirectory(+@"\cache");
+
+                byte[] filelen = new byte[4];
+                ns.Read(filelen, 0, 4);
+                int count = BitConverter.ToInt32(filelen, 0);
+                //接收到的文件保存的名字
+                using (FileStream fs = new FileStream(@"cache\" + imgId.ToString() + ".jpg", FileMode.OpenOrCreate))
+                {
+                    byte[] buffer = new byte[512];
+                    int size = 0;//初始化读取的流量为0   
+                    int len = 0;
+                    while (len < count)
+                    {
+                        size = ns.Read(buffer, 0, buffer.Length);
+                        fs.Write(buffer, 0, size);
+                        len += size;
+                    }
+                }
+            }
+            //MessageBoxEx.Show("下载完成!");
+        }
+
+
     }
 }

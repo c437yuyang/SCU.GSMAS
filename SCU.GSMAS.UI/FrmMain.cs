@@ -154,5 +154,10 @@ namespace SCU.GSMAS.UI
         {
             
         }
+
+        private void tabMain_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

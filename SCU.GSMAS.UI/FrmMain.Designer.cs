@@ -33,40 +33,24 @@ namespace SCU.GSMAS.UI
             this.ribbonControl1 = new DevComponents.DotNetBar.RibbonControl();
             this.ribbonPanel1 = new DevComponents.DotNetBar.RibbonPanel();
             this.ribbonBar3 = new DevComponents.DotNetBar.RibbonBar();
+            this.btn_changeSkin = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
+            this.btnRetrieve = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar1 = new DevComponents.DotNetBar.RibbonBar();
-            this.ribbonPanel2 = new DevComponents.DotNetBar.RibbonPanel();
-            this.ribbonBar4 = new DevComponents.DotNetBar.RibbonBar();
+            this.btn_Explore = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonPanel3 = new DevComponents.DotNetBar.RibbonPanel();
-            this.ribbonBar5 = new DevComponents.DotNetBar.RibbonBar();
-            this.ribbonPanel4 = new DevComponents.DotNetBar.RibbonPanel();
-            this.bnTab_sp = new DevComponents.DotNetBar.RibbonTabItem();
-            this.rbTab_user = new DevComponents.DotNetBar.RibbonTabItem();
-            this.rbTab_dataManage = new DevComponents.DotNetBar.RibbonTabItem();
-            this.rbTab_ImageProc = new DevComponents.DotNetBar.RibbonTabItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabMain = new DevComponents.DotNetBar.TabControl();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lbl_uname = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_field = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_specimen = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_Date = new System.Windows.Forms.ToolStripStatusLabel();
-            this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
-            this.cms = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.全部关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关闭其他ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem16 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem15 = new DevComponents.DotNetBar.ButtonItem();
+            this.ribbonBar5 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem14 = new DevComponents.DotNetBar.ButtonItem();
             this.btn_SpCompare = new DevComponents.DotNetBar.ButtonItem();
+            this.ribbonPanel4 = new DevComponents.DotNetBar.RibbonPanel();
+            this.ribbonPanel2 = new DevComponents.DotNetBar.RibbonPanel();
+            this.ribbonBar4 = new DevComponents.DotNetBar.RibbonBar();
             this.btn_changePswd = new DevComponents.DotNetBar.ButtonItem();
             this.btn_userLevelCtl = new DevComponents.DotNetBar.ButtonItem();
             this.btn_addUser = new DevComponents.DotNetBar.ButtonItem();
-            this.btn_changeSkin = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRetrieve = new DevComponents.DotNetBar.ButtonItem();
-            this.btn_Explore = new DevComponents.DotNetBar.ButtonItem();
             this.applicationButton1 = new DevComponents.DotNetBar.ApplicationButton();
             this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
             this.itemContainer2 = new DevComponents.DotNetBar.ItemContainer();
@@ -86,10 +70,27 @@ namespace SCU.GSMAS.UI
             this.itemContainer4 = new DevComponents.DotNetBar.ItemContainer();
             this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
+            this.bnTab_sp = new DevComponents.DotNetBar.RibbonTabItem();
+            this.rbTab_user = new DevComponents.DotNetBar.RibbonTabItem();
+            this.rbTab_dataManage = new DevComponents.DotNetBar.RibbonTabItem();
+            this.rbTab_ImageProc = new DevComponents.DotNetBar.RibbonTabItem();
+            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabMain = new DevComponents.DotNetBar.TabControl();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lbl_uname = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbl_field = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbl_specimen = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbl_Date = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pg_loadPic = new System.Windows.Forms.ToolStripProgressBar();
+            this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
+            this.cms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.全部关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关闭其他ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
-            this.ribbonPanel2.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
+            this.ribbonPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,10 +107,10 @@ namespace SCU.GSMAS.UI
             // 
             this.ribbonControl1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonControl1.CaptionVisible = true;
+            this.ribbonControl1.Controls.Add(this.ribbonPanel1);
             this.ribbonControl1.Controls.Add(this.ribbonPanel3);
             this.ribbonControl1.Controls.Add(this.ribbonPanel4);
             this.ribbonControl1.Controls.Add(this.ribbonPanel2);
-            this.ribbonControl1.Controls.Add(this.ribbonPanel1);
             this.ribbonControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ribbonControl1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.applicationButton1,
@@ -152,10 +153,10 @@ namespace SCU.GSMAS.UI
             this.ribbonPanel1.Controls.Add(this.ribbonBar2);
             this.ribbonPanel1.Controls.Add(this.ribbonBar1);
             this.ribbonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ribbonPanel1.Location = new System.Drawing.Point(0, 0);
+            this.ribbonPanel1.Location = new System.Drawing.Point(0, 53);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.ribbonPanel1.Size = new System.Drawing.Size(997, 105);
+            this.ribbonPanel1.Size = new System.Drawing.Size(997, 52);
             // 
             // 
             // 
@@ -169,7 +170,6 @@ namespace SCU.GSMAS.UI
             // 
             this.ribbonPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonPanel1.TabIndex = 1;
-            this.ribbonPanel1.Visible = false;
             // 
             // ribbonBar3
             // 
@@ -202,6 +202,16 @@ namespace SCU.GSMAS.UI
             this.ribbonBar3.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBar3.TitleVisible = false;
             // 
+            // btn_changeSkin
+            // 
+            this.btn_changeSkin.Image = global::SCU.GSMAS.UI.Properties.Resources.computer;
+            this.btn_changeSkin.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.btn_changeSkin.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btn_changeSkin.Name = "btn_changeSkin";
+            this.btn_changeSkin.SubItemsExpandWidth = 14;
+            this.btn_changeSkin.Text = "更换皮肤";
+            this.btn_changeSkin.Click += new System.EventHandler(this.btn_changeSkin_Click);
+            // 
             // ribbonBar2
             // 
             this.ribbonBar2.AutoOverflowEnabled = true;
@@ -232,6 +242,16 @@ namespace SCU.GSMAS.UI
             this.ribbonBar2.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBar2.TitleVisible = false;
             // 
+            // btnRetrieve
+            // 
+            this.btnRetrieve.Image = global::SCU.GSMAS.UI.Properties.Resources.search;
+            this.btnRetrieve.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.btnRetrieve.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnRetrieve.Name = "btnRetrieve";
+            this.btnRetrieve.SubItemsExpandWidth = 14;
+            this.btnRetrieve.Text = "信息检索";
+            this.btnRetrieve.Click += new System.EventHandler(this.btnRetrieve_Click);
+            // 
             // ribbonBar1
             // 
             this.ribbonBar1.AutoOverflowEnabled = true;
@@ -250,7 +270,7 @@ namespace SCU.GSMAS.UI
             this.btn_Explore});
             this.ribbonBar1.Location = new System.Drawing.Point(3, 0);
             this.ribbonBar1.Name = "ribbonBar1";
-            this.ribbonBar1.Size = new System.Drawing.Size(69, 102);
+            this.ribbonBar1.Size = new System.Drawing.Size(69, 49);
             this.ribbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar1.TabIndex = 0;
             // 
@@ -262,6 +282,164 @@ namespace SCU.GSMAS.UI
             // 
             this.ribbonBar1.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBar1.TitleVisible = false;
+            // 
+            // btn_Explore
+            // 
+            this.btn_Explore.Image = global::SCU.GSMAS.UI.Properties.Resources._41;
+            this.btn_Explore.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.btn_Explore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btn_Explore.Name = "btn_Explore";
+            this.btn_Explore.SubItemsExpandWidth = 14;
+            this.btn_Explore.Text = "标本浏览";
+            this.btn_Explore.Click += new System.EventHandler(this.btn_Explore_Click);
+            // 
+            // ribbonPanel3
+            // 
+            this.ribbonPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ribbonPanel3.Controls.Add(this.ribbonBar6);
+            this.ribbonPanel3.Controls.Add(this.ribbonBar5);
+            this.ribbonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ribbonPanel3.Location = new System.Drawing.Point(0, 53);
+            this.ribbonPanel3.Name = "ribbonPanel3";
+            this.ribbonPanel3.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.ribbonPanel3.Size = new System.Drawing.Size(997, 52);
+            // 
+            // 
+            // 
+            this.ribbonPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonPanel3.TabIndex = 3;
+            this.ribbonPanel3.Visible = false;
+            // 
+            // ribbonBar6
+            // 
+            this.ribbonBar6.AutoOverflowEnabled = true;
+            // 
+            // 
+            // 
+            this.ribbonBar6.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBar6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar6.ContainerControlProcessDialogKey = true;
+            this.ribbonBar6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ribbonBar6.DragDropSupport = true;
+            this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem16,
+            this.buttonItem15});
+            this.ribbonBar6.Location = new System.Drawing.Point(149, 0);
+            this.ribbonBar6.Name = "ribbonBar6";
+            this.ribbonBar6.Size = new System.Drawing.Size(151, 49);
+            this.ribbonBar6.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ribbonBar6.TabIndex = 1;
+            this.ribbonBar6.Text = "ribbonBar6";
+            // 
+            // 
+            // 
+            this.ribbonBar6.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBar6.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar6.TitleVisible = false;
+            // 
+            // buttonItem16
+            // 
+            this.buttonItem16.Image = global::SCU.GSMAS.UI.Properties.Resources.HEINS_QUANTUM_FOLDERS_BACK_UP;
+            this.buttonItem16.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.buttonItem16.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonItem16.Name = "buttonItem16";
+            this.buttonItem16.SubItemsExpandWidth = 14;
+            this.buttonItem16.Text = "数据备份";
+            // 
+            // buttonItem15
+            // 
+            this.buttonItem15.Image = global::SCU.GSMAS.UI.Properties.Resources.data_backup;
+            this.buttonItem15.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.buttonItem15.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonItem15.Name = "buttonItem15";
+            this.buttonItem15.SubItemsExpandWidth = 14;
+            this.buttonItem15.Text = "数据库备份";
+            // 
+            // ribbonBar5
+            // 
+            this.ribbonBar5.AutoOverflowEnabled = true;
+            // 
+            // 
+            // 
+            this.ribbonBar5.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBar5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar5.ContainerControlProcessDialogKey = true;
+            this.ribbonBar5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ribbonBar5.DragDropSupport = true;
+            this.ribbonBar5.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem14,
+            this.btn_SpCompare});
+            this.ribbonBar5.Location = new System.Drawing.Point(3, 0);
+            this.ribbonBar5.Name = "ribbonBar5";
+            this.ribbonBar5.Size = new System.Drawing.Size(146, 49);
+            this.ribbonBar5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ribbonBar5.TabIndex = 0;
+            // 
+            // 
+            // 
+            this.ribbonBar5.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBar5.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // buttonItem14
+            // 
+            this.buttonItem14.Image = global::SCU.GSMAS.UI.Properties.Resources.table_add;
+            this.buttonItem14.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.buttonItem14.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonItem14.Name = "buttonItem14";
+            this.buttonItem14.SubItemsExpandWidth = 14;
+            this.buttonItem14.Text = "生成报表";
+            // 
+            // btn_SpCompare
+            // 
+            this.btn_SpCompare.Image = global::SCU.GSMAS.UI.Properties.Resources.Panel_de_control;
+            this.btn_SpCompare.ImageFixedSize = new System.Drawing.Size(20, 20);
+            this.btn_SpCompare.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btn_SpCompare.Name = "btn_SpCompare";
+            this.btn_SpCompare.SubItemsExpandWidth = 14;
+            this.btn_SpCompare.Text = "标本对比";
+            // 
+            // ribbonPanel4
+            // 
+            this.ribbonPanel4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ribbonPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ribbonPanel4.Location = new System.Drawing.Point(0, 53);
+            this.ribbonPanel4.Name = "ribbonPanel4";
+            this.ribbonPanel4.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.ribbonPanel4.Size = new System.Drawing.Size(997, 52);
+            // 
+            // 
+            // 
+            this.ribbonPanel4.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonPanel4.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonPanel4.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonPanel4.TabIndex = 4;
+            this.ribbonPanel4.Visible = false;
             // 
             // ribbonPanel2
             // 
@@ -321,303 +499,6 @@ namespace SCU.GSMAS.UI
             this.ribbonBar4.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBar4.TitleVisible = false;
             // 
-            // ribbonPanel3
-            // 
-            this.ribbonPanel3.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ribbonPanel3.Controls.Add(this.ribbonBar6);
-            this.ribbonPanel3.Controls.Add(this.ribbonBar5);
-            this.ribbonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ribbonPanel3.Location = new System.Drawing.Point(0, 53);
-            this.ribbonPanel3.Name = "ribbonPanel3";
-            this.ribbonPanel3.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.ribbonPanel3.Size = new System.Drawing.Size(997, 52);
-            // 
-            // 
-            // 
-            this.ribbonPanel3.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonPanel3.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonPanel3.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonPanel3.TabIndex = 3;
-            // 
-            // ribbonBar5
-            // 
-            this.ribbonBar5.AutoOverflowEnabled = true;
-            // 
-            // 
-            // 
-            this.ribbonBar5.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonBar5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonBar5.ContainerControlProcessDialogKey = true;
-            this.ribbonBar5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ribbonBar5.DragDropSupport = true;
-            this.ribbonBar5.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem14,
-            this.btn_SpCompare});
-            this.ribbonBar5.Location = new System.Drawing.Point(3, 0);
-            this.ribbonBar5.Name = "ribbonBar5";
-            this.ribbonBar5.Size = new System.Drawing.Size(146, 49);
-            this.ribbonBar5.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ribbonBar5.TabIndex = 0;
-            // 
-            // 
-            // 
-            this.ribbonBar5.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonBar5.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // ribbonPanel4
-            // 
-            this.ribbonPanel4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ribbonPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ribbonPanel4.Location = new System.Drawing.Point(0, 53);
-            this.ribbonPanel4.Name = "ribbonPanel4";
-            this.ribbonPanel4.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.ribbonPanel4.Size = new System.Drawing.Size(997, 52);
-            // 
-            // 
-            // 
-            this.ribbonPanel4.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonPanel4.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonPanel4.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonPanel4.TabIndex = 4;
-            this.ribbonPanel4.Visible = false;
-            // 
-            // bnTab_sp
-            // 
-            this.bnTab_sp.Name = "bnTab_sp";
-            this.bnTab_sp.Panel = this.ribbonPanel1;
-            this.bnTab_sp.Text = "标本管理";
-            // 
-            // rbTab_user
-            // 
-            this.rbTab_user.Name = "rbTab_user";
-            this.rbTab_user.Panel = this.ribbonPanel2;
-            this.rbTab_user.Text = "用户管理";
-            // 
-            // rbTab_dataManage
-            // 
-            this.rbTab_dataManage.Checked = true;
-            this.rbTab_dataManage.Name = "rbTab_dataManage";
-            this.rbTab_dataManage.Panel = this.ribbonPanel3;
-            this.rbTab_dataManage.Text = "数据分析";
-            // 
-            // rbTab_ImageProc
-            // 
-            this.rbTab_ImageProc.Name = "rbTab_ImageProc";
-            this.rbTab_ImageProc.Panel = this.ribbonPanel4;
-            this.rbTab_ImageProc.Text = "图像处理";
-            this.rbTab_ImageProc.Click += new System.EventHandler(this.rbTab_ImageProc_Click);
-            // 
-            // buttonItem1
-            // 
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Text = "四川大学图像信息研究所";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(5, 109);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabMain);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Panel2MinSize = 22;
-            this.splitContainer1.Size = new System.Drawing.Size(997, 504);
-            this.splitContainer1.SplitterDistance = 475;
-            this.splitContainer1.TabIndex = 3;
-            // 
-            // tabMain
-            // 
-            this.tabMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
-            this.tabMain.CanReorderTabs = true;
-            this.tabMain.CloseButtonOnTabsVisible = true;
-            this.tabMain.CloseButtonPosition = DevComponents.DotNetBar.eTabCloseButtonPosition.Right;
-            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.Location = new System.Drawing.Point(0, 0);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
-            this.tabMain.SelectedTabIndex = -1;
-            this.tabMain.Size = new System.Drawing.Size(997, 475);
-            this.tabMain.Style = DevComponents.DotNetBar.eTabStripStyle.Office2007Dock;
-            this.tabMain.TabIndex = 1;
-            this.tabMain.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox;
-            this.tabMain.Text = "tabControl1";
-            this.tabMain.TabItemClose += new DevComponents.DotNetBar.TabStrip.UserActionEventHandler(this.tabMain_TabItemClose);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lbl_uname,
-            this.lbl_field,
-            this.lbl_specimen,
-            this.lbl_Date});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(997, 25);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lbl_uname
-            // 
-            this.lbl_uname.AutoSize = false;
-            this.lbl_uname.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_uname.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_uname.Name = "lbl_uname";
-            this.lbl_uname.Size = new System.Drawing.Size(200, 20);
-            // 
-            // lbl_field
-            // 
-            this.lbl_field.AutoSize = false;
-            this.lbl_field.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_field.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_field.Name = "lbl_field";
-            this.lbl_field.Size = new System.Drawing.Size(100, 20);
-            // 
-            // lbl_specimen
-            // 
-            this.lbl_specimen.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_specimen.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_specimen.Name = "lbl_specimen";
-            this.lbl_specimen.Size = new System.Drawing.Size(382, 20);
-            this.lbl_specimen.Spring = true;
-            // 
-            // lbl_Date
-            // 
-            this.lbl_Date.AutoSize = false;
-            this.lbl_Date.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_Date.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_Date.Name = "lbl_Date";
-            this.lbl_Date.Size = new System.Drawing.Size(300, 20);
-            // 
-            // styleManager1
-            // 
-            this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2010Silver;
-            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
-            // 
-            // cms
-            // 
-            this.cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.全部关闭ToolStripMenuItem,
-            this.关闭其他ToolStripMenuItem});
-            this.cms.Name = "cms";
-            this.cms.Size = new System.Drawing.Size(125, 48);
-            // 
-            // 全部关闭ToolStripMenuItem
-            // 
-            this.全部关闭ToolStripMenuItem.Name = "全部关闭ToolStripMenuItem";
-            this.全部关闭ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.全部关闭ToolStripMenuItem.Text = "全部关闭";
-            // 
-            // 关闭其他ToolStripMenuItem
-            // 
-            this.关闭其他ToolStripMenuItem.Name = "关闭其他ToolStripMenuItem";
-            this.关闭其他ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.关闭其他ToolStripMenuItem.Text = "关闭其他";
-            // 
-            // ribbonBar6
-            // 
-            this.ribbonBar6.AutoOverflowEnabled = true;
-            // 
-            // 
-            // 
-            this.ribbonBar6.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonBar6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonBar6.ContainerControlProcessDialogKey = true;
-            this.ribbonBar6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ribbonBar6.DragDropSupport = true;
-            this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem16,
-            this.buttonItem15});
-            this.ribbonBar6.Location = new System.Drawing.Point(149, 0);
-            this.ribbonBar6.Name = "ribbonBar6";
-            this.ribbonBar6.Size = new System.Drawing.Size(151, 49);
-            this.ribbonBar6.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ribbonBar6.TabIndex = 1;
-            this.ribbonBar6.Text = "ribbonBar6";
-            // 
-            // 
-            // 
-            this.ribbonBar6.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ribbonBar6.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonBar6.TitleVisible = false;
-            // 
-            // buttonItem16
-            // 
-            this.buttonItem16.Image = global::SCU.GSMAS.UI.Properties.Resources.HEINS_QUANTUM_FOLDERS_BACK_UP;
-            this.buttonItem16.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.buttonItem16.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonItem16.Name = "buttonItem16";
-            this.buttonItem16.SubItemsExpandWidth = 14;
-            this.buttonItem16.Text = "数据备份";
-            // 
-            // buttonItem15
-            // 
-            this.buttonItem15.Image = global::SCU.GSMAS.UI.Properties.Resources.data_backup;
-            this.buttonItem15.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.buttonItem15.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonItem15.Name = "buttonItem15";
-            this.buttonItem15.SubItemsExpandWidth = 14;
-            this.buttonItem15.Text = "数据库备份";
-            // 
-            // buttonItem14
-            // 
-            this.buttonItem14.Image = global::SCU.GSMAS.UI.Properties.Resources.table_add;
-            this.buttonItem14.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.buttonItem14.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonItem14.Name = "buttonItem14";
-            this.buttonItem14.SubItemsExpandWidth = 14;
-            this.buttonItem14.Text = "生成报表";
-            // 
-            // btn_SpCompare
-            // 
-            this.btn_SpCompare.Image = global::SCU.GSMAS.UI.Properties.Resources.Panel_de_control;
-            this.btn_SpCompare.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.btn_SpCompare.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btn_SpCompare.Name = "btn_SpCompare";
-            this.btn_SpCompare.SubItemsExpandWidth = 14;
-            this.btn_SpCompare.Text = "标本对比";
-            // 
             // btn_changePswd
             // 
             this.btn_changePswd.Image = global::SCU.GSMAS.UI.Properties.Resources.blue_business_06;
@@ -644,36 +525,6 @@ namespace SCU.GSMAS.UI
             this.btn_addUser.Name = "btn_addUser";
             this.btn_addUser.SubItemsExpandWidth = 14;
             this.btn_addUser.Text = "增加用户";
-            // 
-            // btn_changeSkin
-            // 
-            this.btn_changeSkin.Image = global::SCU.GSMAS.UI.Properties.Resources.computer;
-            this.btn_changeSkin.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.btn_changeSkin.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btn_changeSkin.Name = "btn_changeSkin";
-            this.btn_changeSkin.SubItemsExpandWidth = 14;
-            this.btn_changeSkin.Text = "更换皮肤";
-            this.btn_changeSkin.Click += new System.EventHandler(this.btn_changeSkin_Click);
-            // 
-            // btnRetrieve
-            // 
-            this.btnRetrieve.Image = global::SCU.GSMAS.UI.Properties.Resources.search;
-            this.btnRetrieve.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.btnRetrieve.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnRetrieve.Name = "btnRetrieve";
-            this.btnRetrieve.SubItemsExpandWidth = 14;
-            this.btnRetrieve.Text = "信息检索";
-            this.btnRetrieve.Click += new System.EventHandler(this.btnRetrieve_Click);
-            // 
-            // btn_Explore
-            // 
-            this.btn_Explore.Image = global::SCU.GSMAS.UI.Properties.Resources._41;
-            this.btn_Explore.ImageFixedSize = new System.Drawing.Size(20, 20);
-            this.btn_Explore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btn_Explore.Name = "btn_Explore";
-            this.btn_Explore.SubItemsExpandWidth = 14;
-            this.btn_Explore.Text = "标本浏览";
-            this.btn_Explore.Click += new System.EventHandler(this.btn_Explore_Click);
             // 
             // applicationButton1
             // 
@@ -888,21 +739,178 @@ namespace SCU.GSMAS.UI
             this.buttonItem13.Text = "E&xit";
             this.buttonItem13.Click += new System.EventHandler(this.buttonItem13_Click);
             // 
+            // bnTab_sp
+            // 
+            this.bnTab_sp.Checked = true;
+            this.bnTab_sp.Name = "bnTab_sp";
+            this.bnTab_sp.Panel = this.ribbonPanel1;
+            this.bnTab_sp.Text = "标本管理";
+            // 
+            // rbTab_user
+            // 
+            this.rbTab_user.Name = "rbTab_user";
+            this.rbTab_user.Panel = this.ribbonPanel2;
+            this.rbTab_user.Text = "用户管理";
+            // 
+            // rbTab_dataManage
+            // 
+            this.rbTab_dataManage.Name = "rbTab_dataManage";
+            this.rbTab_dataManage.Panel = this.ribbonPanel3;
+            this.rbTab_dataManage.Text = "数据分析";
+            // 
+            // rbTab_ImageProc
+            // 
+            this.rbTab_ImageProc.Name = "rbTab_ImageProc";
+            this.rbTab_ImageProc.Panel = this.ribbonPanel4;
+            this.rbTab_ImageProc.Text = "图像处理";
+            this.rbTab_ImageProc.Click += new System.EventHandler(this.rbTab_ImageProc_Click);
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.Text = "四川大学图像信息研究所";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(5, 109);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tabMain);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
+            this.splitContainer1.Panel2MinSize = 22;
+            this.splitContainer1.Size = new System.Drawing.Size(997, 504);
+            this.splitContainer1.SplitterDistance = 475;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // tabMain
+            // 
+            this.tabMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
+            this.tabMain.CanReorderTabs = true;
+            this.tabMain.CloseButtonOnTabsVisible = true;
+            this.tabMain.CloseButtonPosition = DevComponents.DotNetBar.eTabCloseButtonPosition.Right;
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Location = new System.Drawing.Point(0, 0);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.tabMain.SelectedTabIndex = -1;
+            this.tabMain.Size = new System.Drawing.Size(997, 475);
+            this.tabMain.Style = DevComponents.DotNetBar.eTabStripStyle.Office2007Dock;
+            this.tabMain.TabIndex = 1;
+            this.tabMain.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox;
+            this.tabMain.Text = "tabControl1";
+            this.tabMain.TabItemClose += new DevComponents.DotNetBar.TabStrip.UserActionEventHandler(this.tabMain_TabItemClose);
+            this.tabMain.Click += new System.EventHandler(this.tabMain_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lbl_uname,
+            this.lbl_field,
+            this.lbl_specimen,
+            this.lbl_Date,
+            this.pg_loadPic});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(997, 25);
+            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lbl_uname
+            // 
+            this.lbl_uname.AutoSize = false;
+            this.lbl_uname.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbl_uname.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.lbl_uname.Name = "lbl_uname";
+            this.lbl_uname.Size = new System.Drawing.Size(200, 20);
+            // 
+            // lbl_field
+            // 
+            this.lbl_field.AutoSize = false;
+            this.lbl_field.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbl_field.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.lbl_field.Name = "lbl_field";
+            this.lbl_field.Size = new System.Drawing.Size(100, 20);
+            // 
+            // lbl_specimen
+            // 
+            this.lbl_specimen.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbl_specimen.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.lbl_specimen.Name = "lbl_specimen";
+            this.lbl_specimen.Size = new System.Drawing.Size(280, 20);
+            this.lbl_specimen.Spring = true;
+            // 
+            // lbl_Date
+            // 
+            this.lbl_Date.AutoSize = false;
+            this.lbl_Date.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbl_Date.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.lbl_Date.Name = "lbl_Date";
+            this.lbl_Date.Size = new System.Drawing.Size(300, 20);
+            // 
+            // pg_loadPic
+            // 
+            this.pg_loadPic.Name = "pg_loadPic";
+            this.pg_loadPic.Size = new System.Drawing.Size(100, 19);
+            // 
+            // styleManager1
+            // 
+            this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2010Silver;
+            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
+            // 
+            // cms
+            // 
+            this.cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.全部关闭ToolStripMenuItem,
+            this.关闭其他ToolStripMenuItem});
+            this.cms.Name = "cms";
+            this.cms.Size = new System.Drawing.Size(125, 48);
+            // 
+            // 全部关闭ToolStripMenuItem
+            // 
+            this.全部关闭ToolStripMenuItem.Name = "全部关闭ToolStripMenuItem";
+            this.全部关闭ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.全部关闭ToolStripMenuItem.Text = "全部关闭";
+            // 
+            // 关闭其他ToolStripMenuItem
+            // 
+            this.关闭其他ToolStripMenuItem.Name = "关闭其他ToolStripMenuItem";
+            this.关闭其他ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.关闭其他ToolStripMenuItem.Text = "关闭其他";
+            // 
             // FrmMain
             // 
             this.ClientSize = new System.Drawing.Size(1007, 615);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "FrmMain";
-            this.Text = "FrmMain";
+            this.Text = "实物标本管理分析系统";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMain_FormClosed);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.ribbonControl1.ResumeLayout(false);
             this.ribbonControl1.PerformLayout();
             this.ribbonPanel1.ResumeLayout(false);
-            this.ribbonPanel2.ResumeLayout(false);
             this.ribbonPanel3.ResumeLayout(false);
+            this.ribbonPanel2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -974,5 +982,6 @@ namespace SCU.GSMAS.UI
         private DevComponents.DotNetBar.RibbonBar ribbonBar6;
         private DevComponents.DotNetBar.ButtonItem buttonItem16;
         private DevComponents.DotNetBar.ButtonItem buttonItem15;
+        private System.Windows.Forms.ToolStripProgressBar pg_loadPic;
     }
 }

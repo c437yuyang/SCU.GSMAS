@@ -81,5 +81,31 @@ namespace SCU.GSMAS.DAL
         }
 
 
+        public TblImage GetModel(int id)
+        {
+            string sql = "select * from TblImage where im_id=@id";
+            TblImage model = new TblImage();
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(sql, System.Data.CommandType.Text,
+                new SqlParameter("@id", System.Data.SqlDbType.Int) { Value = id }))
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        model.im_id = reader.GetInt32(0);
+                        model.im_path = reader.GetString(1);
+                        model.im_fileName = reader.GetString(2);
+                        model.im_time = reader.GetDateTime(3);
+                        model.im_resolution = reader.IsDBNull(4) ? null : (int?)reader.GetInt32(4);
+                        model.im_saveLevel = reader.IsDBNull(5) ? null : (int?)reader.GetInt32(5);
+                        model.cam_id = reader.IsDBNull(6) ? null : (int?)reader.GetInt32(6);
+                        model.sp_id = reader.IsDBNull(7) ? null : (int?)reader.GetInt32(7);
+                        model.userId = reader.GetInt32(8);
+                    }
+                }
+            }
+            return model;
+        }
+
     }
 }

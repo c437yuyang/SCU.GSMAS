@@ -222,12 +222,12 @@ namespace SCU.GSMAS.UI
             dataGridViewCellStyle2.Font = new System.Drawing.Font("ËÎÌו", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvExplore.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvExplore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvExplore.EnableHeadersVisualStyles = false;
-            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvExplore.Location = new System.Drawing.Point(0, 29);
             this.dgvExplore.Name = "dgvExplore";
             this.dgvExplore.ReadOnly = true;

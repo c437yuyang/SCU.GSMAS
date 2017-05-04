@@ -61,5 +61,11 @@ namespace SCU.GSMAS.BLL
             return dt;
         }
 
+        public TblImage GetModel(int id)
+        {
+            return dal.GetModel(id);
+        }
+
+
     }
 }
