@@ -19,7 +19,7 @@ namespace SCU.GSMAS.UI
         private void btn_Explore_Click(object sender, EventArgs e)
         {
             FrmExplore frm = FrmExplore.CreateInstance();
-            if(!IsOpenTab(frm.Name))
+            if (!IsOpenTab(frm.Name))
                 openWindow(frm, frm.Name);
         }
 
@@ -138,21 +138,23 @@ namespace SCU.GSMAS.UI
 
         private void buttonItem13_Click(object sender, EventArgs e)
         {
-            if(MessageBoxEx.Show("确认退出?","提示",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            if (MessageBoxEx.Show("确认退出?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 System.Environment.Exit(0);
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBoxEx.Show("确认退出?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 System.Environment.Exit(0);
+            }
             else
                 e.Cancel = true;
         }
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void tabMain_Click(object sender, EventArgs e)

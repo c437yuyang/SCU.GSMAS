@@ -77,12 +77,12 @@ namespace SCU.GSMAS.UI
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabMain = new DevComponents.DotNetBar.TabControl();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lbl_uname = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_field = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_specimen = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lbl_Date = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pg_loadPic = new System.Windows.Forms.ToolStripProgressBar();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.lbl_Date = new DevComponents.DotNetBar.LabelItem();
+            this.lbl_field = new DevComponents.DotNetBar.LabelItem();
+            this.lbl_uname = new DevComponents.DotNetBar.LabelItem();
+            this.lbl_specimen = new DevComponents.DotNetBar.LabelItem();
+            this.progressBarItem1 = new DevComponents.DotNetBar.ProgressBarItem();
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.cms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.全部关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +96,7 @@ namespace SCU.GSMAS.UI
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.cms.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -785,7 +785,7 @@ namespace SCU.GSMAS.UI
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
+            this.splitContainer1.Panel2.Controls.Add(this.bar1);
             this.splitContainer1.Panel2MinSize = 22;
             this.splitContainer1.Size = new System.Drawing.Size(997, 504);
             this.splitContainer1.SplitterDistance = 475;
@@ -810,66 +810,62 @@ namespace SCU.GSMAS.UI
             this.tabMain.TabItemClose += new DevComponents.DotNetBar.TabStrip.UserActionEventHandler(this.tabMain_TabItemClose);
             this.tabMain.Click += new System.EventHandler(this.tabMain_Click);
             // 
-            // statusStrip1
+            // bar1
             // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lbl_uname,
-            this.lbl_field,
-            this.lbl_specimen,
+            this.bar1.AccessibleDescription = "bar1 (bar1)";
+            this.bar1.AccessibleName = "bar1";
+            this.bar1.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.bar1.AntiAlias = true;
+            this.bar1.BarType = DevComponents.DotNetBar.eBarType.StatusBar;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bar1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bar1.IsMaximized = false;
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.lbl_Date,
-            this.pg_loadPic});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(997, 25);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lbl_uname
-            // 
-            this.lbl_uname.AutoSize = false;
-            this.lbl_uname.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_uname.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_uname.Name = "lbl_uname";
-            this.lbl_uname.Size = new System.Drawing.Size(200, 20);
-            // 
-            // lbl_field
-            // 
-            this.lbl_field.AutoSize = false;
-            this.lbl_field.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_field.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_field.Name = "lbl_field";
-            this.lbl_field.Size = new System.Drawing.Size(100, 20);
-            // 
-            // lbl_specimen
-            // 
-            this.lbl_specimen.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_specimen.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbl_specimen.Name = "lbl_specimen";
-            this.lbl_specimen.Size = new System.Drawing.Size(280, 20);
-            this.lbl_specimen.Spring = true;
+            this.lbl_field,
+            this.lbl_uname,
+            this.lbl_specimen,
+            this.progressBarItem1});
+            this.bar1.ItemSpacing = 50;
+            this.bar1.Location = new System.Drawing.Point(0, 0);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(997, 25);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 0;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
             // 
             // lbl_Date
             // 
-            this.lbl_Date.AutoSize = false;
-            this.lbl_Date.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbl_Date.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.lbl_Date.Name = "lbl_Date";
-            this.lbl_Date.Size = new System.Drawing.Size(300, 20);
+            this.lbl_Date.Text = "labelItem1";
             // 
-            // pg_loadPic
+            // lbl_field
             // 
-            this.pg_loadPic.Name = "pg_loadPic";
-            this.pg_loadPic.Size = new System.Drawing.Size(100, 19);
+            this.lbl_field.Name = "lbl_field";
+            this.lbl_field.Text = "labelItem1";
+            // 
+            // lbl_uname
+            // 
+            this.lbl_uname.Name = "lbl_uname";
+            this.lbl_uname.Text = "labelItem1";
+            // 
+            // lbl_specimen
+            // 
+            this.lbl_specimen.Name = "lbl_specimen";
+            this.lbl_specimen.Text = "labelItem1";
+            // 
+            // progressBarItem1
+            // 
+            // 
+            // 
+            // 
+            this.progressBarItem1.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.progressBarItem1.ChunkGradientAngle = 0F;
+            this.progressBarItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.progressBarItem1.Name = "progressBarItem1";
+            this.progressBarItem1.RecentlyUsed = false;
             // 
             // styleManager1
             // 
@@ -913,12 +909,10 @@ namespace SCU.GSMAS.UI
             this.ribbonPanel2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.cms.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -970,11 +964,6 @@ namespace SCU.GSMAS.UI
         private DevComponents.DotNetBar.ButtonItem buttonItem1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private DevComponents.DotNetBar.TabControl tabMain;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel lbl_uname;
-        private System.Windows.Forms.ToolStripStatusLabel lbl_field;
-        private System.Windows.Forms.ToolStripStatusLabel lbl_specimen;
-        private System.Windows.Forms.ToolStripStatusLabel lbl_Date;
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private System.Windows.Forms.ContextMenuStrip cms;
         private System.Windows.Forms.ToolStripMenuItem 全部关闭ToolStripMenuItem;
@@ -982,6 +971,11 @@ namespace SCU.GSMAS.UI
         private DevComponents.DotNetBar.RibbonBar ribbonBar6;
         private DevComponents.DotNetBar.ButtonItem buttonItem16;
         private DevComponents.DotNetBar.ButtonItem buttonItem15;
-        private System.Windows.Forms.ToolStripProgressBar pg_loadPic;
+        private DevComponents.DotNetBar.Bar bar1;
+        private DevComponents.DotNetBar.LabelItem lbl_Date;
+        private DevComponents.DotNetBar.LabelItem lbl_field;
+        private DevComponents.DotNetBar.LabelItem lbl_uname;
+        private DevComponents.DotNetBar.LabelItem lbl_specimen;
+        private DevComponents.DotNetBar.ProgressBarItem progressBarItem1;
     }
 }
