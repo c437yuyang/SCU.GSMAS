@@ -5,6 +5,7 @@ using System.Threading;
 using System.IO;
 using SCU.GSMAS.BLL;
 using SCU.GSMAS.Model;
+using SCU.GSMAS.Common;
 
 namespace SCU.GSMAS.UI.Server
 {
@@ -51,41 +52,58 @@ namespace SCU.GSMAS.UI.Server
                         {
                             if (ns != null)
                             {
-                                byte[] file = new byte[400];
-                                ns.Read(file, 0, 4); //先读到imgID
-                                int imgID = BitConverter.ToInt32(file, 0);
-                                TblImage model = bllImg.GetModel(imgID);
-
-                                string fileName = model.im_path + '/' + model.im_fileName;
-                                ShowMsg("客户端连接成功" + client.Client.RemoteEndPoint.ToString());
-                                ShowMsg("请求文件:" + fileName);
-
-                                if (!File.Exists(fileName)) //如果文件不存在，返回给客户端信息，文件不存在
+                                byte[] header = new byte[CommonHelper.headerSize];
+                                ns.Read(header, 0, CommonHelper.headerSize); //先读到文件头
+                                switch (header[0])
                                 {
-                                    ShowMsg("文件不存在!");
-                                    byte[] buffer = new byte[512];
-                                    buffer[0] = (byte)Common.GetFileResult.FileNotExist;
-                                    //ns.Write()
-                                    return;
-                                }
+                                    case (byte)Protocal.MSG_TEXT:
+                                        break;
+                                    case (byte)Protocal.MSG_IMAGE_ORIGIN:
+                                        {
+                                            int imgID = BitConverter.ToInt32(header, 1);
+                                            TblImage model = bllImg.GetModel(imgID);
+                                            string fileName = model.im_path + '/' + model.im_fileName;
+                                            ShowMsg("客户端:" + client.Client.RemoteEndPoint.ToString());
+                                            ShowMsg("请求文件:" + fileName);
+                                            if (!File.Exists(fileName)) //如果文件不存在，返回给客户端信息，文件不存在
+                                            {
+                                                ShowMsg("文件不存在!");
+                                                byte[] buffer = new byte[CommonHelper.headerSize];
+                                                buffer[0] = (byte)Protocal.MSG_IMAGE_NOTEXIST;
+                                                ns.Write(buffer, 0, CommonHelper.headerSize);
+                                                return;
+                                            }
 
-                                using (FileStream fs = new FileStream(@fileName.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                                {
-                                    byte[] filelen = new byte[4];
-                                    filelen = BitConverter.GetBytes(fs.Length);
-                                    ns.Write(filelen, 0, 4);
-                                    int size = 0;//初始化读取的流量为0   
-                                    long len = 0;//初始化已经读取的流量 
-                                    while (len < fs.Length)
-                                    {
-                                        byte[] buffer = new byte[512];
-                                        size = fs.Read(buffer, 0, buffer.Length);
-                                        ns.Write(buffer, 0, size);
-                                        len += size;
-                                    }
+                                            using (FileStream fs = new FileStream(@fileName.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                                            {
+                                                byte[] sendHeader = new byte[CommonHelper.headerSize];
+                                                sendHeader[0] = (byte)Protocal.MSG_IMAGE_ORIGIN;
+                                                byte[] bufFileLen = new byte[4];
+                                                bufFileLen = BitConverter.GetBytes(fs.Length);
+                                                bufFileLen.CopyTo(sendHeader, 1);
+                                                ns.Write(sendHeader, 0, CommonHelper.headerSize);//头文件写入网络
+                                                int size = 0;//初始化读取的流量为0   
+                                                long len = 0;//初始化已经读取的流量 
+                                                while (len < fs.Length)
+                                                {
+                                                    byte[] buffer = new byte[CommonHelper.recBufSize];
+                                                    size = fs.Read(buffer, 0, buffer.Length);
+                                                    ns.Write(buffer, 0, size);
+                                                    len += size;
+                                                }
 
+                                            }
+                                            ShowMsg("文件发送成功");
+                                            break;
+                                        }                                        
+                                    case (byte)Protocal.MSG_IMAGE_THUMBNAIL://请求缩略图
+                                        {
+
+                                            break;
+                                        }
+
+                                    default:break;
                                 }
-                                ShowMsg("文件发送成功");
                             }
                         }
                     }

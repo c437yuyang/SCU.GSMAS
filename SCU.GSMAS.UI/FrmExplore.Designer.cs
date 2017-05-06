@@ -227,7 +227,7 @@ namespace SCU.GSMAS.UI
             this.dgvExplore.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvExplore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvExplore.EnableHeadersVisualStyles = false;
-            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.dgvExplore.Location = new System.Drawing.Point(0, 29);
             this.dgvExplore.Name = "dgvExplore";
             this.dgvExplore.ReadOnly = true;
@@ -245,7 +245,10 @@ namespace SCU.GSMAS.UI
             this.dgvExplore.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvExplore.Size = new System.Drawing.Size(590, 489);
             this.dgvExplore.TabIndex = 5;
+            this.dgvExplore.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvExplore_CellContentClick);
             this.dgvExplore.DoubleClick += new System.EventHandler(this.dgvExplore_DoubleClick);
+            this.dgvExplore.MouseLeave += new System.EventHandler(this.dgvExplore_MouseLeave);
+            this.dgvExplore.MouseHover += new System.EventHandler(this.dgvExplore_MouseHover);
             // 
             // im_id
             // 

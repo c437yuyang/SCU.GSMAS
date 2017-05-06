@@ -15,6 +15,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Reflection;
+using SCU.GSMAS.Common;
 
 namespace SCU.GSMAS.UI
 {
@@ -252,21 +253,22 @@ namespace SCU.GSMAS.UI
 
         private Image getImageByItem()
         {
-            string path = System.Environment.CurrentDirectory + @"\cache\";
-            Directory.CreateDirectory(path);
+            if(!Directory.Exists(CommonHelper.cachePath))
+                Directory.CreateDirectory(CommonHelper.cachePath);
+
             int imgId = (int)dgvExplore.SelectedRows[0].Cells["im_id"].Value;
 
             //检查缓存中是否存在请求图像，如果存在则直接读取否则开启新线程下载图像
             if (!checkCache(imgId))
             {
                 //启动新线程下载图像
-                _thReceive = new Thread(ask);
+                _thReceive = new Thread(getImageByServer);
                 _thReceive.Start(imgId);
                 _thReceive.IsBackground = true;
-                _thReceive.Join();
+                _thReceive.Join(); //必须等待线程执行完毕，后期应该做成一个模态对话框显示进度，防止用户操作
             }
 
-            string imgPath = @"cache\" + imgId.ToString() + ".jpg";
+            string imgPath = CommonHelper.cachePath + imgId.ToString() + ".jpg";
             //Console.WriteLine(imgPath);
             Image img = Image.FromFile(imgPath);
             return img;
@@ -280,61 +282,96 @@ namespace SCU.GSMAS.UI
 
         private bool checkCache(int imgId)
         {
-            string cachePath = System.Environment.CurrentDirectory + @"\cache\";
+            //string cachePath = System.Environment.CurrentDirectory + @"\cache\";
 
-            string[] files = Directory.GetFiles(cachePath);
+            //string[] files = Directory.GetFiles(cachePath);
 
-            foreach(var file in files)
-            {
-                FileInfo fileinfo = new FileInfo(file);           
-                if (fileinfo.Name == imgId.ToString() + ".jpg")
-                {
-                    return true;
-                }
-            }
-            return false;
+            //foreach(var file in files)
+            //{
+            //    FileInfo fileinfo = new FileInfo(file);           
+            //    if (fileinfo.Name == imgId.ToString() + ".jpg")
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
+
+            return File.Exists(CommonHelper.cachePath + imgId.ToString() + ".jpg");
 
         }
 
-        private void ask(object Id)
+        private void getImageByServer(object Id)
         {
             int imgId = (int)Id; //还需要判断图像是否存在，如果不存在则提示用户未找到图像
             //下载得到的图像存放按照ID存储在(cache目录下)，每次下载前先检查是否存在缓存图像
             TcpClient client = new TcpClient();
-            //client.Connect(IPAddress.Parse("127.0.0.1"), int.Parse("50000"));
-            client.Connect(IPAddress.Parse("192.168.135.100"), int.Parse("50000"));
+            client.Connect(IPAddress.Parse(CommonHelper.serverIp), CommonHelper.serverPort);
+            //client.Connect(IPAddress.Parse("192.168.135.100"), int.Parse("50000"));
 
             using (NetworkStream ns = client.GetStream())
             {
                 //向服务器端发送请求的文件ID
-
+                //第一个字节表示通信类型，后面四个字节代表图像id
+                
                 byte[] idBuffer = BitConverter.GetBytes(imgId);
-                byte[] filebuf = new byte[400];
-                idBuffer.CopyTo(filebuf, 0);
-                ns.Write(filebuf, 0, 400); //发送请求文件ID
+                byte[] filebuf = new byte[CommonHelper.headerSize]; //文件头长度为512
+                filebuf[0] = (byte)Protocal.MSG_IMAGE_ORIGIN; //表明请求原图
+                idBuffer.CopyTo(filebuf, 1);
+                ns.Write(filebuf, 0, CommonHelper.headerSize); //发送请求信息
 
                 //Directory.CreateDirectory(+@"\cache");
 
-                byte[] filelen = new byte[4];
-                ns.Read(filelen, 0, 4);
-                int count = BitConverter.ToInt32(filelen, 0);
-                //接收到的文件保存的名字
-                using (FileStream fs = new FileStream(@"cache\" + imgId.ToString() + ".jpg", FileMode.OpenOrCreate))
+                byte[] recHeader = new byte[CommonHelper.headerSize];
+                ns.Read(recHeader, 0, CommonHelper.headerSize);
+
+                switch (recHeader[0])
                 {
-                    byte[] buffer = new byte[512];
-                    int size = 0;//初始化读取的流量为0   
-                    int len = 0;
-                    while (len < count)
-                    {
-                        size = ns.Read(buffer, 0, buffer.Length);
-                        fs.Write(buffer, 0, size);
-                        len += size;
-                    }
+                    case (byte)Protocal.MSG_IMAGE_ORIGIN: //图像正常传输
+                        {
+                            int fileLen = BitConverter.ToInt32(recHeader, 1);
+                            //接收到的文件保存的名字
+                            using (FileStream fs = new FileStream(@"cache\" + imgId.ToString() + ".jpg", FileMode.OpenOrCreate))
+                            {
+                                byte[] buffer = new byte[CommonHelper.recBufSize]; //每次读取512字节数据
+                                int r = 0;//初始化读取的流量为0   
+                                int len = 0;
+                                while (len < fileLen)
+                                {
+                                    r = ns.Read(buffer, 0, buffer.Length);
+                                    fs.Write(buffer, 0, r);
+                                    len += r;
+                                }
+                            }
+                            break;
+                        }
+                        
+                    case (byte)Protocal.MSG_IMAGE_NOTEXIST: //图像不存在
+                        {
+                            MessageBoxEx.Show("请求图像不存在!");
+                            break;
+                        }
+                        
+                    default:break;
                 }
+
+                
             }
             //MessageBoxEx.Show("下载完成!");
         }
 
+        private void dgvExplore_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
+
+        private void dgvExplore_MouseHover(object sender, EventArgs e)
+        {
+            Console.WriteLine("dgvExplore_MouseHover");
+        }
+
+        private void dgvExplore_MouseLeave(object sender, EventArgs e)
+        {
+            Console.WriteLine("dgvExplore_MouseLeave");
+        }
     }
 }
