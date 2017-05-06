@@ -24,6 +24,18 @@ namespace SCU.GSMAS.UI.Server
             startListening();
         }
 
+        /// <summary>
+        /// 检查是否已经有某张图像的缩略图
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private bool checkCache(TblImage model)
+        {
+            string fileName = model.im_path + '/' + model.im_fileName;
+            string thumbName = CommonHelper.getThumbPath(fileName);
+            return File.Exists(thumbName);
+        }
+
         private void startListening()
         {
 
@@ -63,6 +75,12 @@ namespace SCU.GSMAS.UI.Server
                                             int imgID = BitConverter.ToInt32(header, 1);
                                             TblImage model = bllImg.GetModel(imgID);
                                             string fileName = model.im_path + '/' + model.im_fileName;
+
+                                            //if (!checkCache(model))
+                                            //{
+                                            //    getThumbNail(fileName, 1, 50, 50);
+                                            //}
+
                                             ShowMsg("客户端:" + client.Client.RemoteEndPoint.ToString());
                                             ShowMsg("请求文件:" + fileName);
                                             if (!File.Exists(fileName)) //如果文件不存在，返回给客户端信息，文件不存在
@@ -95,14 +113,14 @@ namespace SCU.GSMAS.UI.Server
                                             }
                                             ShowMsg("文件发送成功");
                                             break;
-                                        }                                        
+                                        }
                                     case (byte)Protocal.MSG_IMAGE_THUMBNAIL://请求缩略图
                                         {
 
                                             break;
                                         }
 
-                                    default:break;
+                                    default: break;
                                 }
                             }
                         }
@@ -129,6 +147,28 @@ namespace SCU.GSMAS.UI.Server
                 listBox1.Items.Add(msg);
             }
         }
+
+
+        private void getThumbNail(string imgPath, int mode, int width, int height)
+        {
+            int newH, newW;
+            if (mode == 0) //百分比模式
+            {
+                newH = height;
+                newW = width;
+            }
+            else //指定长宽模式
+            {
+                newH = height;
+                newW = width;
+            }
+
+            string thumbPath = CommonHelper.getThumbPath(imgPath);
+
+            ImageHelper.MakeThumbnail(imgPath, thumbPath, newW, newH, "HW");
+
+        }
+
 
     }
 }
