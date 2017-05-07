@@ -149,6 +149,8 @@ namespace SCU.GSMAS.UI
             {
                 advTree1.SelectedIndex = -1;
                 this.dgvExplore.DataSource = imBll.GetDataTable();
+
+                if (_th_loadThumbs != null && _th_loadThumbs.IsAlive) { Console.WriteLine("线程还活着"); _th_loadThumbs.Abort(); }
                 _th_loadThumbs = new Thread(loadThumbsToDgv);
                 _th_loadThumbs.IsBackground = true;
                 _th_loadThumbs.Start();
@@ -223,6 +225,7 @@ namespace SCU.GSMAS.UI
                 dgvExplore.DataSource = imBll.GetDataTableByFieldId((int)advTree1.SelectedNode.Tag);
             }
 
+            if (_th_loadThumbs != null && _th_loadThumbs.IsAlive) { Console.WriteLine("线程还活着"); _th_loadThumbs.Abort(); }
             _th_loadThumbs = new Thread(loadThumbsToDgv);
             _th_loadThumbs.IsBackground = true;
             _th_loadThumbs.Start();
