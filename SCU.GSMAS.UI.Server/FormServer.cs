@@ -95,7 +95,7 @@ namespace SCU.GSMAS.UI.Server
                                                 byte[] buffer = new byte[CommonHelper.headerSize];
                                                 buffer[0] = (byte)Protocal.MSG_IMAGE_NOTEXIST;
                                                 ns.Write(buffer, 0, CommonHelper.headerSize);
-                                                return;
+                                                break; //这里千万不能return!,会直接导致整个服务端的监听线程死掉
                                             }
 
                                             using (FileStream fs = new FileStream(@fileName.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -131,11 +131,11 @@ namespace SCU.GSMAS.UI.Server
    
                                             if (!File.Exists(fileName)) //如果文件不存在（原图），返回给客户端信息，文件不存在
                                             {
-                                                ShowMsg("原图不存在!");
+                                                ShowMsg("原图不存在，无法生成缩略图");
                                                 byte[] buffer = new byte[CommonHelper.headerSize];
                                                 buffer[0] = (byte)Protocal.MSG_IMAGE_NOTEXIST;
                                                 ns.Write(buffer, 0, CommonHelper.headerSize);
-                                                return;
+                                                break; //这里千万不能return!,会直接导致整个服务端的监听线程死掉
                                             }
 
                                             if (!checkCache(model, ImageHeader.IMAGE_THUMB)) //如果缩略图不存在则重新创建

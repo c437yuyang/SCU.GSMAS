@@ -26,6 +26,7 @@ namespace SCU.GSMAS.UI
         private TblSpecimenBll spBll = new TblSpecimenBll();
         private TblImageBll imBll = new TblImageBll();
         private Thread _thReceive;
+        private Thread _th_loadThumbs;
         private FrmExplore()
         {
             InitializeComponent();
@@ -52,6 +53,9 @@ namespace SCU.GSMAS.UI
             loadDataToAdvTree();
         }
 
+        /// <summary>
+        /// 设置树形控件的style
+        /// </summary>
         private void SetAdvStyle()
         {
             advTree1.Nodes.Clear();
@@ -98,19 +102,13 @@ namespace SCU.GSMAS.UI
                     groupNode.Nodes.Add(subNode);
                 }
             }
-            cb_field.SelectedIndex = 0;//先选中全部
+            cb_field.SelectedIndex = 0;//先选中全部,并且会触发加载事件
+
             //advTree1.Columns["im_fileName"].Visible=false;
             //advTree1.Columns["im_path"].Visible = false;
             //启动一个后台线程，加载缩略图（因为之后还要设计分页，所以不用考虑是否数据量太大的问题）
             //这里不要写成匿名函数，还是重新写一下好，后面还会调用
         }
-
-
-        void loadThumbs()
-        {
-
-        }
-
 
         private Node CreateChildNode(string nodeText, string subText, Image image, ElementStyle subItemStyle)
         {
@@ -151,13 +149,16 @@ namespace SCU.GSMAS.UI
             {
                 advTree1.SelectedIndex = -1;
                 this.dgvExplore.DataSource = imBll.GetDataTable();
+                _th_loadThumbs = new Thread(loadThumbsToDgv);
+                _th_loadThumbs.IsBackground = true;
+                _th_loadThumbs.Start();
                 return;
             }
             int index = getTreeIndexByName(advTree1.Nodes, cb_field.SelectedItem.ToString()); //找到对应的树控件的itemIndex
             if (index != -1)
                 advTree1.SelectedNode = advTree1.Nodes[index];
 
-            LoadSelectItem(); //这个函数根据tree控件选中的item来加载
+            LoadSelectItemToDgv(); //这个函数根据tree控件选中的item来加载
 
             //2.然后为选中的矿区加载(标本)comboBox
             cb_sp.Items.Clear();
@@ -196,11 +197,17 @@ namespace SCU.GSMAS.UI
         {
             //Console.WriteLine(advTree1.SelectedIndex); //前者是再整颗树中的index
             //Console.WriteLine(advTree1.SelectedNode.Index); //后者是在当前节点下的index
-            LoadSelectItem();
+            if (advTree1.SelectedNode != null)
+                LoadSelectItemToDgv();
         }
 
-        private void LoadSelectItem()
+        /// <summary>
+        /// 加载指定项目到DatagridView
+        /// </summary>
+        private void LoadSelectItemToDgv()
         {
+            if (advTree1.SelectedNode == null)
+                return;
             List<TblImage> list = new List<TblImage>();
             DataTable dt = new DataTable();
             //加载对应标本的图像文件
@@ -215,7 +222,52 @@ namespace SCU.GSMAS.UI
                 //根节点,加载指定矿区对应图像
                 dgvExplore.DataSource = imBll.GetDataTableByFieldId((int)advTree1.SelectedNode.Tag);
             }
+
+            _th_loadThumbs = new Thread(loadThumbsToDgv);
+            _th_loadThumbs.IsBackground = true;
+            _th_loadThumbs.Start();
         }
+
+        /// <summary>
+        /// 后台线程加载DataGridView上已有项目的缩略图
+        /// </summary>
+        void loadThumbsToDgv()
+        {
+            for (int i = 0; i != dgvExplore.Rows.Count; ++i)
+            {
+                //这个单元格还没有缩略图，要生成
+                if (((DataGridViewImageCell)(dgvExplore.Rows[i].Cells["im_thumb"]).Value) == null)
+                {
+                    int imageId = (int)(dgvExplore.Rows[i].Cells["im_id"]).Value;
+                    string originImagePath = CommonHelper.cachePath + imageId.ToString() + ".jpg";
+                    string thumbPath = CommonHelper.getThumbPath(originImagePath);
+                    ImageHeader header = new ImageHeader(imageId, ImageHeader.IMAGE_THUMB);
+                    if (!checkCache(header))
+                    {
+                        //如果缩略图不存在的话，则向服务器请求缩略图
+                        _thReceive = new Thread(getImageByServer);
+                        _thReceive.Start(header);
+                        _thReceive.IsBackground = true;
+                        _thReceive.Join(); //必须等待线程执行完毕，后期应该做成一个模态对话框显示进度，防止用户操作
+                    }
+
+                    try
+                    {
+
+                        Image thumb = Image.FromFile(thumbPath);
+                        ((DataGridViewImageCell)(dgvExplore.Rows[i].Cells["im_thumb"])).Value = (object)thumb;
+                        //thumb.Dispose(); //问题:加载后的图像还全部保持本地文件打开的
+                    }
+                    catch
+                    {
+                        Console.WriteLine("未找到指定缩略图");
+                    }
+
+
+                }
+            }
+        }
+
 
         private void cb_sp_Click(object sender, EventArgs e)
         {
@@ -241,8 +293,10 @@ namespace SCU.GSMAS.UI
 
             if (dgvExplore.SelectedRows.Count != 0)
             {
-                //Image img = getImageByItem(ImageHeader.IMAGE_ORIGIN);
-                Image img = getImageByItem(ImageHeader.IMAGE_THUMB);
+                Image img = getImageByItem(ImageHeader.IMAGE_ORIGIN);
+                if (img == null)
+                    return;//双重保险
+                //Image img = getImageByItem(ImageHeader.IMAGE_THUMB);
 
                 if (Common.FrmManager.dicFrms.ContainsKey(typeof(FrmImage).ToString()))
                 {
@@ -262,6 +316,12 @@ namespace SCU.GSMAS.UI
 
         }
 
+
+        /// <summary>
+        /// 双击对应行后，下载原图
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private Image getImageByItem(int type)
         {
             if (!Directory.Exists(CommonHelper.cachePath))
@@ -288,30 +348,22 @@ namespace SCU.GSMAS.UI
             else
                 imgPath = CommonHelper.cachePath + "default.jpg";
             //Console.WriteLine(imgPath);
-            Image img = Image.FromFile(imgPath);
-            return img;
-            //return null;
-
+            try
+            {
+                Image img = Image.FromFile(imgPath);
+                return img;
+            }
+            catch
+            {
+                MessageBoxEx.Show("获取图像失败,请检查网络连接!");
+                return null;
+            }
 
 
         }
 
         private bool checkCache(ImageHeader head)
         {
-            //string cachePath = System.Environment.CurrentDirectory + @"\cache\";
-
-            //string[] files = Directory.GetFiles(cachePath);
-
-            //foreach(var file in files)
-            //{
-            //    FileInfo fileinfo = new FileInfo(file);           
-            //    if (fileinfo.Name == imgId.ToString() + ".jpg")
-            //    {
-            //        return true;
-            //    }
-            //}
-            //return false;
-
             if (head.Type == ImageHeader.IMAGE_ORIGIN)
                 return File.Exists(CommonHelper.cachePath + head.Id.ToString() + ".jpg");
             if (head.Type == ImageHeader.IMAGE_THUMB)
@@ -319,6 +371,10 @@ namespace SCU.GSMAS.UI
             return false;
         }
 
+        /// <summary>
+        /// 向服务器请求缩略图或原图，请求完成后下载图像到指定缓存路径，之后程序再读取指定路径就可以了
+        /// </summary>
+        /// <param name="header"></param>
         private void getImageByServer(object header)
         {
             //先拿到ID
@@ -326,7 +382,15 @@ namespace SCU.GSMAS.UI
 
             //下载得到的图像存放按照ID存储在(cache目录下)，每次下载前先检查是否存在缓存图像
             TcpClient client = new TcpClient();
-            client.Connect(IPAddress.Parse(CommonHelper.serverIp), CommonHelper.serverPort);
+            try { client.Connect(IPAddress.Parse(CommonHelper.serverIp), CommonHelper.serverPort); }
+            catch
+            {
+                if (_th_loadThumbs.IsAlive)
+                { Console.WriteLine("线程还活着"); ; _th_loadThumbs.Abort(); }
+                MessageBoxEx.Show("连接到服务器失败!");
+                return;
+            }
+
             //client.Connect(IPAddress.Parse("192.168.135.100"), int.Parse("50000"));
 
             using (NetworkStream ns = client.GetStream())
@@ -337,9 +401,9 @@ namespace SCU.GSMAS.UI
                 byte[] idBuffer = BitConverter.GetBytes(imgId); //图像ID
                 byte[] filebuf = new byte[CommonHelper.headerSize]; //文件头长度为512
                 int type = ((ImageHeader)header).Type;
-                if(type==ImageHeader.IMAGE_ORIGIN)
+                if (type == ImageHeader.IMAGE_ORIGIN)
                     filebuf[0] = (byte)Protocal.MSG_IMAGE_ORIGIN; //表明请求原图
-                else if(type == ImageHeader.IMAGE_THUMB)
+                else if (type == ImageHeader.IMAGE_THUMB)
                     filebuf[0] = (byte)Protocal.MSG_IMAGE_THUMBNAIL; //表明请求缩略图
 
                 idBuffer.CopyTo(filebuf, 1);

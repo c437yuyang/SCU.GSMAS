@@ -44,7 +44,7 @@ namespace SCU.GSMAS.UI
             this.cb_sp = new DevComponents.DotNetBar.ComboBoxItem();
             this.dgvExplore = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.im_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.im_image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.im_thumb = new System.Windows.Forms.DataGridViewImageColumn();
             this.im_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.im_fileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.im_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -210,7 +210,7 @@ namespace SCU.GSMAS.UI
             this.dgvExplore.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExplore.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.im_id,
-            this.im_image,
+            this.im_thumb,
             this.im_path,
             this.im_fileName,
             this.im_time,
@@ -259,11 +259,11 @@ namespace SCU.GSMAS.UI
             this.im_id.Name = "im_id";
             this.im_id.ReadOnly = true;
             // 
-            // im_image
+            // im_thumb
             // 
-            this.im_image.HeaderText = "‘§¿¿ÕºœÒ";
-            this.im_image.Name = "im_image";
-            this.im_image.ReadOnly = true;
+            this.im_thumb.HeaderText = "‘§¿¿ÕºœÒ";
+            this.im_thumb.Name = "im_thumb";
+            this.im_thumb.ReadOnly = true;
             // 
             // im_path
             // 
@@ -467,7 +467,7 @@ namespace SCU.GSMAS.UI
         private DevComponents.DotNetBar.ComboBoxItem cbPageSize;
         private DevComponents.DotNetBar.LabelItem labelItem2;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_id;
-        private System.Windows.Forms.DataGridViewImageColumn im_image;
+        private System.Windows.Forms.DataGridViewImageColumn im_thumb;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_path;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_fileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_time;

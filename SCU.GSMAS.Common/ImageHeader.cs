@@ -13,6 +13,13 @@ namespace SCU.GSMAS.Common
     /// </summary>
     public struct ImageHeader
     {
+
+        public ImageHeader(int id,int type)
+        {
+            this.Id = id;
+            this.Type = type;
+        }
+
         public static int IMAGE_ORIGIN = 0;
         public static int IMAGE_THUMB = 1;
         public int Id;
