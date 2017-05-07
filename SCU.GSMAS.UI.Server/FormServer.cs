@@ -29,11 +29,22 @@ namespace SCU.GSMAS.UI.Server
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private bool checkCache(TblImage model)
+        private bool checkCache(TblImage model, int type)
         {
             string fileName = model.im_path + '/' + model.im_fileName;
-            string thumbName = CommonHelper.getThumbPath(fileName);
-            return File.Exists(thumbName);
+            if (type == ImageHeader.IMAGE_ORIGIN)
+            {
+                return File.Exists(fileName);
+            }
+            else if (type == ImageHeader.IMAGE_THUMB)
+            {
+                string thumbName = CommonHelper.getThumbPath(fileName);
+                return File.Exists(thumbName);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void startListening()
@@ -76,16 +87,11 @@ namespace SCU.GSMAS.UI.Server
                                             TblImage model = bllImg.GetModel(imgID);
                                             string fileName = model.im_path + '/' + model.im_fileName;
 
-                                            //if (!checkCache(model))
-                                            //{
-                                            //    getThumbNail(fileName, 1, 50, 50);
-                                            //}
-
                                             ShowMsg("客户端:" + client.Client.RemoteEndPoint.ToString());
-                                            ShowMsg("请求文件:" + fileName);
+                                            ShowMsg("请求原图:" + fileName);
                                             if (!File.Exists(fileName)) //如果文件不存在，返回给客户端信息，文件不存在
                                             {
-                                                ShowMsg("文件不存在!");
+                                                ShowMsg("原图不存在!");
                                                 byte[] buffer = new byte[CommonHelper.headerSize];
                                                 buffer[0] = (byte)Protocal.MSG_IMAGE_NOTEXIST;
                                                 ns.Write(buffer, 0, CommonHelper.headerSize);
@@ -111,12 +117,52 @@ namespace SCU.GSMAS.UI.Server
                                                 }
 
                                             }
-                                            ShowMsg("文件发送成功");
+                                            ShowMsg("原图发送成功");
                                             break;
                                         }
                                     case (byte)Protocal.MSG_IMAGE_THUMBNAIL://请求缩略图
                                         {
+                                            int imgID = BitConverter.ToInt32(header, 1);
+                                            TblImage model = bllImg.GetModel(imgID);
+                                            string fileName = model.im_path + '/' + model.im_fileName;
+                                            string thumbName = CommonHelper.getThumbPath(fileName);
+                                            ShowMsg("客户端:" + client.Client.RemoteEndPoint.ToString());
+                                            ShowMsg("请求缩略图:" + fileName);
+   
+                                            if (!File.Exists(fileName)) //如果文件不存在（原图），返回给客户端信息，文件不存在
+                                            {
+                                                ShowMsg("原图不存在!");
+                                                byte[] buffer = new byte[CommonHelper.headerSize];
+                                                buffer[0] = (byte)Protocal.MSG_IMAGE_NOTEXIST;
+                                                ns.Write(buffer, 0, CommonHelper.headerSize);
+                                                return;
+                                            }
 
+                                            if (!checkCache(model, ImageHeader.IMAGE_THUMB)) //如果缩略图不存在则重新创建
+                                            {
+                                                createThumbNail(fileName, 1, 50, 50);
+                                            }
+
+                                            using (FileStream fs = new FileStream(@thumbName.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                                            {
+                                                byte[] sendHeader = new byte[CommonHelper.headerSize];
+                                                sendHeader[0] = (byte)Protocal.MSG_IMAGE_THUMBNAIL;
+                                                byte[] bufFileLen = new byte[4];
+                                                bufFileLen = BitConverter.GetBytes(fs.Length);
+                                                bufFileLen.CopyTo(sendHeader, 1);
+                                                ns.Write(sendHeader, 0, CommonHelper.headerSize);//头文件写入网络
+                                                int size = 0;//初始化读取的流量为0   
+                                                long len = 0;//初始化已经读取的流量 
+                                                while (len < fs.Length)
+                                                {
+                                                    byte[] buffer = new byte[CommonHelper.recBufSize];
+                                                    size = fs.Read(buffer, 0, buffer.Length);
+                                                    ns.Write(buffer, 0, size);
+                                                    len += size;
+                                                }
+
+                                            }
+                                            ShowMsg("缩略图发送成功");
                                             break;
                                         }
 
@@ -149,7 +195,7 @@ namespace SCU.GSMAS.UI.Server
         }
 
 
-        private void getThumbNail(string imgPath, int mode, int width, int height)
+        private string createThumbNail(string imgPath, int mode, int width, int height)
         {
             int newH, newW;
             if (mode == 0) //百分比模式
@@ -166,7 +212,7 @@ namespace SCU.GSMAS.UI.Server
             string thumbPath = CommonHelper.getThumbPath(imgPath);
 
             ImageHelper.MakeThumbnail(imgPath, thumbPath, newW, newH, "HW");
-
+            return thumbPath;
         }
 
 

@@ -44,6 +44,7 @@ namespace SCU.GSMAS.UI
             this.cb_sp = new DevComponents.DotNetBar.ComboBoxItem();
             this.dgvExplore = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.im_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.im_image = new System.Windows.Forms.DataGridViewImageColumn();
             this.im_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.im_fileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.im_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -209,6 +210,7 @@ namespace SCU.GSMAS.UI
             this.dgvExplore.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExplore.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.im_id,
+            this.im_image,
             this.im_path,
             this.im_fileName,
             this.im_time,
@@ -227,7 +229,7 @@ namespace SCU.GSMAS.UI
             this.dgvExplore.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvExplore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvExplore.EnableHeadersVisualStyles = false;
-            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvExplore.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvExplore.Location = new System.Drawing.Point(0, 29);
             this.dgvExplore.Name = "dgvExplore";
             this.dgvExplore.ReadOnly = true;
@@ -257,12 +259,19 @@ namespace SCU.GSMAS.UI
             this.im_id.Name = "im_id";
             this.im_id.ReadOnly = true;
             // 
+            // im_image
+            // 
+            this.im_image.HeaderText = "Ô¤ÀÀÍ¼Ïñ";
+            this.im_image.Name = "im_image";
+            this.im_image.ReadOnly = true;
+            // 
             // im_path
             // 
             this.im_path.DataPropertyName = "im_path";
             this.im_path.HeaderText = "Í¼ÏñÂ·¾¶";
             this.im_path.Name = "im_path";
             this.im_path.ReadOnly = true;
+            this.im_path.Visible = false;
             // 
             // im_fileName
             // 
@@ -270,6 +279,7 @@ namespace SCU.GSMAS.UI
             this.im_fileName.HeaderText = "Í¼ÏñÃû³Æ";
             this.im_fileName.Name = "im_fileName";
             this.im_fileName.ReadOnly = true;
+            this.im_fileName.Visible = false;
             // 
             // im_time
             // 
@@ -457,6 +467,7 @@ namespace SCU.GSMAS.UI
         private DevComponents.DotNetBar.ComboBoxItem cbPageSize;
         private DevComponents.DotNetBar.LabelItem labelItem2;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_id;
+        private System.Windows.Forms.DataGridViewImageColumn im_image;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_path;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_fileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn im_time;

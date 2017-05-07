@@ -99,8 +99,18 @@ namespace SCU.GSMAS.UI
                 }
             }
             cb_field.SelectedIndex = 0;//先选中全部
+            //advTree1.Columns["im_fileName"].Visible=false;
+            //advTree1.Columns["im_path"].Visible = false;
+            //启动一个后台线程，加载缩略图（因为之后还要设计分页，所以不用考虑是否数据量太大的问题）
+            //这里不要写成匿名函数，还是重新写一下好，后面还会调用
+        }
+
+
+        void loadThumbs()
+        {
 
         }
+
 
         private Node CreateChildNode(string nodeText, string subText, Image image, ElementStyle subItemStyle)
         {
@@ -231,7 +241,8 @@ namespace SCU.GSMAS.UI
 
             if (dgvExplore.SelectedRows.Count != 0)
             {
-                Image img = getImageByItem();
+                //Image img = getImageByItem(ImageHeader.IMAGE_ORIGIN);
+                Image img = getImageByItem(ImageHeader.IMAGE_THUMB);
 
                 if (Common.FrmManager.dicFrms.ContainsKey(typeof(FrmImage).ToString()))
                 {
@@ -251,36 +262,41 @@ namespace SCU.GSMAS.UI
 
         }
 
-        private Image getImageByItem()
+        private Image getImageByItem(int type)
         {
-            if(!Directory.Exists(CommonHelper.cachePath))
+            if (!Directory.Exists(CommonHelper.cachePath))
                 Directory.CreateDirectory(CommonHelper.cachePath);
 
             int imgId = (int)dgvExplore.SelectedRows[0].Cells["im_id"].Value;
-
+            ImageHeader header = new ImageHeader();
+            header.Id = imgId; header.Type = type;
             //检查缓存中是否存在请求图像，如果存在则直接读取否则开启新线程下载图像
-            if (!checkCache(imgId))
+            if (!checkCache(header))
             {
                 //启动新线程下载图像
                 _thReceive = new Thread(getImageByServer);
-                _thReceive.Start(imgId);
+                _thReceive.Start(header);
                 _thReceive.IsBackground = true;
                 _thReceive.Join(); //必须等待线程执行完毕，后期应该做成一个模态对话框显示进度，防止用户操作
             }
 
-            string imgPath = CommonHelper.cachePath + imgId.ToString() + ".jpg";
+            string imgPath;
+            if (type == ImageHeader.IMAGE_ORIGIN)
+                imgPath = CommonHelper.cachePath + imgId.ToString() + ".jpg";
+            else if (type == ImageHeader.IMAGE_THUMB)
+                imgPath = CommonHelper.cachePath + imgId.ToString() + "_thumb.jpg";
+            else
+                imgPath = CommonHelper.cachePath + "default.jpg";
             //Console.WriteLine(imgPath);
             Image img = Image.FromFile(imgPath);
             return img;
-
-
             //return null;
 
 
 
         }
 
-        private bool checkCache(int imgId)
+        private bool checkCache(ImageHeader head)
         {
             //string cachePath = System.Environment.CurrentDirectory + @"\cache\";
 
@@ -296,13 +312,18 @@ namespace SCU.GSMAS.UI
             //}
             //return false;
 
-            return File.Exists(CommonHelper.cachePath + imgId.ToString() + ".jpg");
-
+            if (head.Type == ImageHeader.IMAGE_ORIGIN)
+                return File.Exists(CommonHelper.cachePath + head.Id.ToString() + ".jpg");
+            if (head.Type == ImageHeader.IMAGE_THUMB)
+                return File.Exists(CommonHelper.getThumbPath(CommonHelper.cachePath + head.Id.ToString() + ".jpg"));
+            return false;
         }
 
-        private void getImageByServer(object Id)
+        private void getImageByServer(object header)
         {
-            int imgId = (int)Id; //还需要判断图像是否存在，如果不存在则提示用户未找到图像
+            //先拿到ID
+            int imgId = ((ImageHeader)header).Id; //还需要判断图像是否存在，如果不存在则提示用户未找到图像
+
             //下载得到的图像存放按照ID存储在(cache目录下)，每次下载前先检查是否存在缓存图像
             TcpClient client = new TcpClient();
             client.Connect(IPAddress.Parse(CommonHelper.serverIp), CommonHelper.serverPort);
@@ -312,10 +333,15 @@ namespace SCU.GSMAS.UI
             {
                 //向服务器端发送请求的文件ID
                 //第一个字节表示通信类型，后面四个字节代表图像id
-                
-                byte[] idBuffer = BitConverter.GetBytes(imgId);
+
+                byte[] idBuffer = BitConverter.GetBytes(imgId); //图像ID
                 byte[] filebuf = new byte[CommonHelper.headerSize]; //文件头长度为512
-                filebuf[0] = (byte)Protocal.MSG_IMAGE_ORIGIN; //表明请求原图
+                int type = ((ImageHeader)header).Type;
+                if(type==ImageHeader.IMAGE_ORIGIN)
+                    filebuf[0] = (byte)Protocal.MSG_IMAGE_ORIGIN; //表明请求原图
+                else if(type == ImageHeader.IMAGE_THUMB)
+                    filebuf[0] = (byte)Protocal.MSG_IMAGE_THUMBNAIL; //表明请求缩略图
+
                 idBuffer.CopyTo(filebuf, 1);
                 ns.Write(filebuf, 0, CommonHelper.headerSize); //发送请求信息
 
@@ -330,7 +356,7 @@ namespace SCU.GSMAS.UI
                         {
                             int fileLen = BitConverter.ToInt32(recHeader, 1);
                             //接收到的文件保存的名字
-                            using (FileStream fs = new FileStream(@"cache\" + imgId.ToString() + ".jpg", FileMode.OpenOrCreate))
+                            using (FileStream fs = new FileStream(CommonHelper.cachePath + imgId.ToString() + ".jpg", FileMode.OpenOrCreate))
                             {
                                 byte[] buffer = new byte[CommonHelper.recBufSize]; //每次读取512字节数据
                                 int r = 0;//初始化读取的流量为0   
@@ -344,17 +370,35 @@ namespace SCU.GSMAS.UI
                             }
                             break;
                         }
-                        
+                    case (byte)Protocal.MSG_IMAGE_THUMBNAIL:
+                        {
+                            int fileLen = BitConverter.ToInt32(recHeader, 1);
+                            //接收到的文件保存的名字
+                            using (FileStream fs = new FileStream(CommonHelper.cachePath + imgId.ToString() + "_thumb.jpg", FileMode.OpenOrCreate))
+                            {
+                                byte[] buffer = new byte[CommonHelper.recBufSize]; //每次读取512字节数据
+                                int r = 0;//初始化读取的流量为0   
+                                int len = 0;
+                                while (len < fileLen)
+                                {
+                                    r = ns.Read(buffer, 0, buffer.Length);
+                                    fs.Write(buffer, 0, r);
+                                    len += r;
+                                }
+                            }
+                            break;
+                        }
+
                     case (byte)Protocal.MSG_IMAGE_NOTEXIST: //图像不存在
                         {
                             MessageBoxEx.Show("请求图像不存在!");
                             break;
                         }
-                        
-                    default:break;
+
+                    default: break;
                 }
 
-                
+
             }
             //MessageBoxEx.Show("下载完成!");
         }

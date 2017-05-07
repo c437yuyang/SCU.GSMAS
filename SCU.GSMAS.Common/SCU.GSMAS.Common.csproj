@@ -45,6 +45,7 @@
     <Compile Include="CommonHelper.cs" />
     <Compile Include="FrmManager.cs" />
     <Compile Include="GetFileResult.cs" />
+    <Compile Include="ImageHeader.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocal.cs" />

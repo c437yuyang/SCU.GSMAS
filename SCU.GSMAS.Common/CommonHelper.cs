@@ -8,7 +8,7 @@ namespace SCU.GSMAS.Common
 {
     public static class CommonHelper
     {
-        public static string cachePath = System.Environment.CurrentDirectory + @"\cache\";
+        public static string cachePath = System.Environment.CurrentDirectory + @"\cache\"; //带前\带后\
         public static int headerSize = 512;
         public static string serverIp = "127.0.0.1";
         public static int serverPort = 50000;
